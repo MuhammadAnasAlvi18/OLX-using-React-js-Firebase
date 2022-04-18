@@ -7,6 +7,7 @@ import {
   Routes,
   Route,
 } from "react-router-dom";
+import MainTwo from "./Components/MainTwo";
 
 
 function App() {
@@ -15,7 +16,8 @@ function App() {
       <Routes>
         <Route index path="/sell" element={<Sell />}/>
         <Route index path="/" element={<Main />}/>
-        <Route index path="/sell/attributes" element={<AddCards />}/> 
+        <Route index path="/sell/attributes" element={<AddCards />}/>
+        <Route index path="/item/:id" element={<MainTwo />}/> 
       </Routes>
     </Router>
   );

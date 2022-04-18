@@ -7,6 +7,8 @@ import { Link } from "react-router-dom";
 import camera from '../images/photo-camera.png'
 import avatar from '../images/avatar.png'
 import store from "../Redux/store";
+import db from "./Firebase";
+import { collection, addDoc } from "firebase/firestore";
 
 
 const AddCards = () => {
@@ -20,12 +22,49 @@ const AddCards = () => {
   const [number,setnumber] = useState("")
   const [categoryy , setcategoryy] = useState("")
   const [subcategoryy , setsubcategoryy] = useState("")
+  const [msg , setmsg] = useState("")
+  const [colors , setcolors ] = useState("")
   const stores = store.getState();
+  const uid = "123456789"
+  const [image , setimage] = useState("")
 
-  useEffect(()=>{
+  useEffect(async ()=>{
+    console.log(stores)
     setcategoryy(stores[1].categories)
     setsubcategoryy(stores[1].subcategories)
   },[])
+
+ 
+
+  const addCard = async ()=>{
+    try {
+      const docRef = await addDoc(collection(db, "cards"), {
+        title:Adtitle,
+        description:description,
+        price:price,
+        condition:condition,
+        location:loacation,
+        name:name,
+        phone:number,
+        uid:uid
+      });
+      console.log("Document written with ID: ", docRef.id);
+      setmsg("Your Ad Post Successfully")
+      setcolors("green")
+    } catch (e) {
+      console.error("Error adding document: ", e);
+      setcolors("red")
+    }
+    setAdtitle("")
+    setdescription("")
+    setcondition("")
+    setloacation("")
+    setname("")
+    setprice("")
+    setnumber("")
+  }
+  
+
 
   return (
     <div className="sellDiv">
@@ -55,12 +94,12 @@ const AddCards = () => {
                 <span className="detailsSpan">Ad title</span>
                 <input type='text' id="detailsInput" value={Adtitle} onChange={(e)=>{
                   setAdtitle(e.target.value)
-                }}/>
+                }} required autoComplete="off"/>
                 <span className="detailsSpan-2">Mention the key features of your item (e.g. brand, model, age, type)</span>
             </label>
             <lable htmlFor="detailsInput2" className="detailsLabel">
               <span className="detailsSpan2">Description</span>
-              <textarea id="detailsInput2" maxlength="4096" autocomplete="nope" value={description} onChange={(e)=>{setdescription(e.target.value)}}></textarea>
+              <textarea id="detailsInput2" maxLength="4096" autoComplete="nope" value={description} onChange={(e)=>{setdescription(e.target.value)}}></textarea>
               <span className="detailsSpan-2">Include condition, features and reason for selling</span>
             </lable>
             <div className="condition">
@@ -81,7 +120,7 @@ const AddCards = () => {
             <div className="setAprice">
               <h2>Set A Price</h2>    
               <span>Price</span>
-              <input type="number" value={price} onChange={(e)=>{setprice(e.target.value)}}></input>
+              <input type="text" value={price} onChange={(e)=>{setprice(e.target.value)}}></input>
             </div>
             <div className="photo">
               <h2 className="uploadh2">Upload Up To 20 Photos</h2>
@@ -138,7 +177,8 @@ const AddCards = () => {
           </div>
         </div>
         <div className="postDiv">
-          <button>Post now</button>
+          <span style={{color:colors}}>{msg}</span>
+          <button onClick={addCard}>Post now</button>
         </div>
         </div>
       </div>

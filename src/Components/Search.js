@@ -39,6 +39,7 @@ const Search = () => {
               return(
                 <li key={Math.floor(Math.random() * 987654321)} onClick={(e)=>{
                   setselected(option)
+                  setisActive(false)
                 }}>{option}</li>
               )
             })

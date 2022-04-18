@@ -1,14 +1,13 @@
-import React from "react";
-import Top from "../Components/Top";
-import Card from "../Components/Card";
-import Search from "../Components/Search";
-import Category from "../Components/Category";
-import Banner from "../Components/Banner";
-import banner from "../images/banner.PNG";
-import Footer from '../Components/Footer'
+import React from 'react'
+import Top from './Top'
+import Search from './Search'
+import Category from './Category'
+import Banner from './Banner'
+import CardDetail from './CardDetail'
+import Footer from './Footer'
+import banner from '../images/banner.PNG'
 
-
-const Main = () => {
+const MainTwo = () => {
   return (
     <div className="container-fluid">
       <div className="fixedDiv">
@@ -18,7 +17,7 @@ const Main = () => {
       </div>
       <Banner />
       <h1 className="h1">Fresh recommendations</h1>
-      <Card />
+      <CardDetail />
       <div className="banner-2">
         <img src={banner}></img>
       </div>
@@ -27,7 +26,7 @@ const Main = () => {
         <h2>Free Classifieds in Pakistan . © 2006-2022 OLX</h2>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Main;
+export default MainTwo

@@ -93,7 +93,7 @@
   height: 305px;
   background-color: #fff;
   position: absolute;
-  top: 11.9%;
+  top: 65.5%;
   border-radius: 5px;
   box-shadow: 0px 3px 11px -1px rgba(0,0,0,0.75);
 -webkit-box-shadow: 0px 3px 11px -1px rgba(0,0,0,0.75);
@@ -188,6 +188,7 @@
 .banner{
   width: 100%;
   height: 30%;
+  padding-top: 190px;
 }
 .banner img{
   width: 100%;
@@ -218,6 +219,7 @@
   border: 1px solid #ccc;
   margin: 5px;
   border-radius: 2px;
+  cursor: pointer;
 }
 .card-1 img{
   width: 100%;
@@ -537,6 +539,13 @@
   width: 100%;
   height: 20%;
   border-top: 1px solid rgba(0,47,52,.36);
+  display: flex;
+  flex-direction: column;
+}
+.postDiv span{
+  padding: 10px;
+  padding-left: 30px;
+  font-size: 16px;
 }
 .postDiv button{
   margin: 20px;
@@ -915,6 +924,122 @@ border-radius: 1px solid rgba(0,47,52,.36);
   height: 100%;
   background-color: red;
   display: none;
+}
+.hideImage{
+  width: 100%;
+  height: 310px;
+  background-color: #fff;
+  position: absolute;
+  top: 18.4%;
+}
+.cardDtl{
+  width: 100%;
+  height: 1509.9px;
+  padding: 60px;
+  background-color: #fff;
+}
+.cardDtlMain{
+  width: 100%;
+  height: 100vh;
+  z-index: -1;
+}
+.cardDtl2{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
+}
+.a{
+  width: 100%;
+  height: 1366px;
+  margin-left: 66px;
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: row;
+}
+.a1{
+  width: 50%;
+  height: 1366px;
+}
+.aa1{
+  width: 100%;
+  height: 27%;
+  margin-bottom: 5px;
+  border: 1px solid rgba(0,47,52,.36);
+  border-radius: 4px;
+}
+.aa1:nth-child(1){
+  width: 100%;
+  height: 45%;
+}
+.aa2{
+  width: 100%;
+  height: 40.7%;
+  margin-bottom: 5px;
+  border: 1px solid rgba(0,47,52,.36);
+  border-radius: 4px;
+}
+.aa2:nth-child(1){
+  height: 20%;
+  display: flex;
+}
+.a2{
+  width: 44%;
+  height: 750px;
+  padding: 15px;
+  padding-top: 0;
+}
+.fixedDiv{
+  position: fixed;
+  background-color: #fff;
+  width: 100%;
+  z-index: 1;
+}
+.aaa2{
+  width: 50%;
+  height: 100%;
+  margin-right: 3px;
+  padding-left: 20px;
+  padding-top: 15px;
+}
+.aaa2H1{
+  font-size: 32px;
+  padding-bottom: 4px;
+}
+.aaa2H3{
+  font-size: 16px;
+  color: rgba(0,47,52,.64);
+  font-weight: 400;
+  text-transform: capitalize;
+  padding-bottom: 40px;
+}
+.aaa2H5{
+  font-size: 12px;
+  color: rgba(0,47,52,.64);
+  font-weight: 400;
+  text-transform: capitalize;
+}
+.aaa2H6{
+  font-size: 12px;
+  color: rgba(0,47,52,.64);
+  font-weight: 400;
+  text-transform: lowercase;
+  padding-left: 60px;
+  padding-top: 70px;
+}
+.aaa2:nth-child(1){
+  width: 100%;
+}
+.sharenodes{
+  font-size: 26px;
+  font-weight: 400;
+  padding-right: 25px;
+  padding-left: 30px;
+  padding-top: 5px;
+}
+.aaa2 svg{
+  padding-top: 5px;
 }
 /* @media only screen and (max-width: 760px) {
   

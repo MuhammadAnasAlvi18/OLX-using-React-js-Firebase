@@ -11,6 +11,14 @@ const reducer = (state = [] , action) => {
               }
           ]
           break;
+          case "CARD_ID":
+              return[
+                  ...state,
+                  {
+                      cardIds : action.payload.cardId
+                  }
+              ]
+            break;
       default:
           return(
               state
