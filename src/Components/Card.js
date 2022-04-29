@@ -1,17 +1,20 @@
 import React, { useEffect, useState } from "react";
-import db from "./Firebase";
 import { collection, getDocs } from "firebase/firestore";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import CardDetail from "./CardDetail";
 import { isReactNative } from "@firebase/util";
 import store from "../Redux/store";
 import cardImage from '../images/card.jpg'
+import { getFirestore } from "firebase/firestore";
+import app from "./Firebase";
 
 const Card = () => {
   const [cardData, setcardData] = useState([]);
   const [id, setid] = useState([]);
   const [isTrue , setisTrue] = useState(false)
   const [cardDataId , setcardDataId] = useState("")
+  const db = getFirestore(app)
+  const [link , setlink] = useState("/")
 
   let cardId;
 
@@ -39,13 +42,14 @@ const Card = () => {
   if (isTrue){
     return(
       <>
-      <CardDetail id={cardDataId}></CardDetail>
+      <CardDetail id={cardId}></CardDetail>
       </>
     )
   } else {
     return(
       <div className="cards row">
       {cardData.map((cards, index) => {
+        let cardIds = id[index];
         return (
           <div
             key={index + 100}
@@ -55,10 +59,10 @@ const Card = () => {
               console.log(e.target.id);
               cardId = e.target.id;
               setcardDataId(cardId)
-              setTimeout(()=>{window.location = `/item/${cardId}`; setisTrue(true);},1000)
             }}
           >
-            <img src={cardImage}></img>
+        <Link to={`/item/${cardIds}`} param={cardIds}  className='cardLink'>
+            <img src={cards.cover[0]}></img>
             <div className="cardText">
               <h1>{cards.title}</h1>
               <svg
@@ -75,9 +79,13 @@ const Card = () => {
             </div>
             <h1 className="price" >Rs {cards.price}</h1>
             <h3 className="location">{cards.location} , Pakistan</h3>
+            </Link>
           </div>
+         
+          
         );
       })}
+      
     </div>
     )
   }
