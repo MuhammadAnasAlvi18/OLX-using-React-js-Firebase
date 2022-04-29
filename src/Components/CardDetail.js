@@ -4,7 +4,7 @@ import '../App.css'
 import { faShareNodes , faHeart} from '@fortawesome/free-solid-svg-icons'
 
 const CardDetail = (props) => {
-
+  
   useEffect(()=>{
     console.log(props)
   },[])
