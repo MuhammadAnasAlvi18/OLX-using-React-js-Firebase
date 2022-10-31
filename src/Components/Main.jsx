@@ -1,12 +1,12 @@
 import React from "react";
-import Top from "../Components/Top";
-import Card from "../Components/Card";
-import Search from "../Components/Search";
-import Category from "../Components/Category";
-import Banner from "../Components/Banner";
+import Top from "./Top";
+import Card from "./Card";
+import Search from "./Search";
+import Category from "./Category";
+import Banner from "./Banner";
 import banner from "../images/banner.PNG";
-import Footer from '../Components/Footer'
-import Navbar from '../Components/Navbar'
+import Footer from './Footer'
+import Navbar from './Navbar'
 
 
 const Main = () => {
