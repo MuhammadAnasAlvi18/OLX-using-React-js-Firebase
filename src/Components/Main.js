@@ -14,7 +14,7 @@ const Main = () => {
     <>
       <Navbar />
       <Category />
-      {/* <Banner /> */}
+      <Banner />
       <h1 className="h1">Fresh recommendations</h1>
       <Card />
       <div className="banner-2">
