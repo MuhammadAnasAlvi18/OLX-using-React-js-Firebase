@@ -1,15 +1,17 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
 *{
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Roboto', sans-serif;
+  /* font-family: 'Roboto', sans-serif; */
+  font-family: 'Poppins', sans-serif;
 }
-.container{
+/* .container{
   width: 100%;
   height: 100%;
-}
+} */
 .top{
   width: 100%;
   height: 2%;
@@ -1307,3 +1309,206 @@ cursor: pointer;
 /* @media only screen and (max-width: 760px) {
   
 } */
+
+
+.olx_navbar {
+  width: 100%;
+  /* height: 150px; */
+  background: #f7f8f8;
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+.olx_navbar_top{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  padding: 15px 10px 0px 10px;
+}
+
+.olx_navbar_top img{
+  width: 35px;
+}
+
+.olx_navbar_top a{
+  margin: 0 20px;
+  text-decoration: none;
+  color: #000;
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+.olx_navbar_top a:hover{
+  color: #3a77ff;
+}
+
+.olx_navbar_top svg{
+  margin: 0 5px;
+  padding: 8px 10px;
+  background: rgb(239, 239, 239);
+  border-radius: 50%;
+  font-size: 15px;
+  box-shadow: 0px 0px 6px 1px rgba(239,239,239,0.75) inset;
+  -webkit-box-shadow: 0px 0px 6px 1px rgba(239,239,239,0.75) inset;
+  -moz-box-shadow: 0px 0px 6px 1px rgba(239,239,239,0.75) inset;
+}
+
+.olx_navbar_search{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 0px 10px 5px 10px;
+}
+
+.olx_navbar_search img{
+  width: 60px;
+  margin-right: 20px;
+}
+
+.location_input{
+  width: 23%;
+  background: #fff;
+  padding: 10px;
+  border: 2px solid #002f34;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+
+.location_input select{
+  border: none;
+  outline: none;
+  margin-left: 0px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  text-indent: 1px;
+  text-overflow: '';
+  padding: 0 40px 0 10px;
+}
+
+.locationSVG{
+  margin-left: auto;
+  margin-right: 10px;
+}
+
+.olx_navbar_search_input{
+  width: 50%;
+  background: #fff;
+  display: flex;
+  align-items: center;
+}
+
+.olx_navbar_search_input input{
+  width: 90%;
+  padding: 10px;
+  border: none;
+  outline: none;
+  border: 2px solid #002f34;
+  border-radius: 5px;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.olx_navbar_search_input svg{
+  background: #002f34;
+  width: 10%;
+  padding: 13px 5px;
+  text-align: center;
+  color: #fff;
+  font-size: 22px;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+.olx_navbar_login_btn{
+  font-size: 17px;
+  font-weight: 500;
+  color: #002f34;
+  padding-left: 20px;
+}
+
+.olx_navbar_sell_img{
+  width: 130px !important; 
+  margin-left: 20px;
+}
+
+.olx_category{
+  width: 100%;
+  border: 2px solid #fff;
+  margin-top: 145px;
+  padding: 10px;
+  -webkit-box-shadow: 0 1px 4px 0 rgb(0 0 0 / 10%);
+  box-shadow: 0 1px 4px 0 rgb(0 0 0 / 10%);
+}
+
+.allCategorySpan{
+  font-size: 16px !important;
+  text-transform: uppercase;
+  margin-right: 20px;
+  font-weight: 500;
+}
+
+.olx_category span{
+  padding: 0 10px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.olx_category span:hover{
+  color: #00a49f;
+}
+
+.allCategorySpan:hover{
+  color: #000 !important;
+}
+
+.olx_category svg{
+  font-size: 22px;
+  margin-left: 5px;
+}
+
+@media (max-width:992px){
+  .spanDiv{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+@media (max-width:768px){
+  .olx_category{
+    margin-top: 310px;
+  }
+  .olx_navbar_top{
+    justify-content: space-between;
+  }
+  .olx_navbar_search{
+    flex-wrap: wrap;
+  }
+  .location_input{
+    width: 100%;
+  }
+  .olx_navbar_search_input{
+    width: 100%;
+  }
+  .olx_navbar_login_btn{
+    padding-left: 0;
+  }
+  .olx_navbar_search img{
+    margin-right: 0;
+  }
+  .olx_navbar_top a{
+    margin: 0 16px;
+  }
+  
+}

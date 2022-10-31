@@ -1,22 +1,23 @@
+import { faAngleDown } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faAngleDown } from '@fortawesome/free-solid-svg-icons'
 
 const Category = () => {
   return (
-    <div className='categories'>
-       <label htmlFor='category'>
-         <a id='category' href='#'>ALL CATEGORIES</a>&nbsp;&nbsp;
-         <FontAwesomeIcon className='angle-icon angle-icon-2' icon={faAngleDown}></FontAwesomeIcon>
-       </label>
-       <a className='category' href='#'>Mobile Phones</a>
-       <a className='category' href='#'>Cars</a>
-       <a className='category' href='#'>Motorcycles</a>
-       <a className='category' href='#'>Houses</a>
-       <a className='category' href='#'>TV-Video-Audio</a>
-       <a className='category' href='#'>Tablets</a>
-       <a className='category' href='#'>Land & Plots</a>
-     </div>
+    <div className='olx_category'>
+      <div className='container'>
+      <div className='spanDiv'>
+      <span className='allCategorySpan'>All Categories <FontAwesomeIcon icon={faAngleDown}/></span>
+      <span>Mobile Phones</span>
+      <span>Cars</span>
+      <span>Motorcycles</span>
+      <span>Houses</span>
+      <span>TV - Video - Audio</span>
+      <span>Tablets</span>
+      <span>Lands & Plots</span>
+      </div>
+      </div>
+    </div>
   )
 }
 
