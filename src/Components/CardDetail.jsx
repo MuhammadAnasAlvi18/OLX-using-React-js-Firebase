@@ -59,7 +59,7 @@ return(
 <>
     <Navbar />
     <Category />
-    <div className="container">
+    {/* <div className="container">
     <div className='cardDtlMain '>
       {datas.map((cardd)=>{
         let imgArr = cardd.moreimages;
@@ -183,12 +183,12 @@ return(
           )
         })
       }
-    </div>
+    </div> */}
     <Footer />
       <div className="footer-last">
         <h2>Free Classifieds in Pakistan . © 2006-2022 OLX</h2>
       </div>
-    </div>
+    {/* </div> */}
     </>
           )
 }

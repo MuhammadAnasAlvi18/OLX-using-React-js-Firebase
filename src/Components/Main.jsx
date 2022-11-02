@@ -1,7 +1,5 @@
 import React from "react";
-import Top from "./Top";
 import Card from "./Card";
-import Search from "./Search";
 import Category from "./Category";
 import Banner from "./Banner";
 import banner from "../images/banner.PNG";
@@ -20,7 +18,7 @@ const Main = () => {
       <div className="banner-2">
         <img src={banner}></img>
       </div>
-      {/* <Footer /> */}
+      <Footer />
       <div className="footer-last">
         <h2>Free Classifieds in Pakistan . © 2006-2022 OLX</h2>
       </div>
