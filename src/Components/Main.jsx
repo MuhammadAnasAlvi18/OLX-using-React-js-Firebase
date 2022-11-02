@@ -15,7 +15,7 @@ const Main = () => {
       <Navbar />
       <Category />
       <Banner />
-      <h1 className="h1">Fresh recommendations</h1>
+      <div className="container"><h1 className="h1">Fresh recommendations</h1></div>
       <Card />
       <div className="banner-2">
         <img src={banner}></img>

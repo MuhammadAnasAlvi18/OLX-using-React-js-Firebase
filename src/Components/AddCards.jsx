@@ -101,7 +101,8 @@ const AddCards = () => {
           phone: number,
           uid: uid,
           cover: coverImageURL,
-          moreimages: filesURL
+          moreimages: filesURL,
+          time : new Date().getTime()
         });
         console.log("Document written with ID: ", docRef.id);
         setmsg("Your Ad Post Successfully");

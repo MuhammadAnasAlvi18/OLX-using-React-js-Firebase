@@ -2,18 +2,14 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, { useEffect, useState } from 'react'
 import '../App.css'
 import { faShareNodes , faAngleRight , faPhone , faAngleLeft} from '@fortawesome/free-solid-svg-icons'
-import {} from '@fortawesome/free-regular-svg-icons'
 import avatar from "../images/avatar.png"
 import mapImage from '../images/Map.png'
 import { doc, getDoc } from "firebase/firestore";
 import { getFirestore } from "firebase/firestore";
 import app from "./Firebase";
-import { useParams } from 'react-router-dom'
-import Top from './Top'
-import Search from './Search'
-import Category from './Category'
 import Footer from './Footer'
-import { async } from '@firebase/util'
+import Navbar from './Navbar'
+import Category from './Category'
 
 const CardDetail = () => {
 
@@ -60,13 +56,10 @@ if (docSnap.exists()) {
 
   
 return(
-
-  <div className="container-fluid">
-  <div className="fixedDiv">
-  <Top />
-  <Search />
-  <Category />
-  </div>
+<>
+    <Navbar />
+    <Category />
+    <div className="container">
     <div className='cardDtlMain '>
       {datas.map((cardd)=>{
         let imgArr = cardd.moreimages;
@@ -196,6 +189,7 @@ return(
         <h2>Free Classifieds in Pakistan . © 2006-2022 OLX</h2>
       </div>
     </div>
+    </>
           )
 }
 
