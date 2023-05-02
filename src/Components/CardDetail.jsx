@@ -59,7 +59,7 @@ return(
 <>
     <Navbar />
     <Category />
-    {/* <div className="container">
+    <div className="container">
     <div className='cardDtlMain '>
       {datas.map((cardd)=>{
         let imgArr = cardd.moreimages;
@@ -169,11 +169,11 @@ return(
               <div className='aa2'>
                 <h1 className='aa2H12'>Posted in</h1>
                 <h3 className='aa2H32'>{cardd.location},Sindh</h3>
-                <div className='aa2Div5'>
+                {/* <div className='aa2Div5'>
                 <img src={mapImage} className="aa2img2"></img>
                 <span>See location</span>
                 <FontAwesomeIcon icon={faAngleRight}></FontAwesomeIcon>
-                </div>
+                </div> */}
               </div>
               <span className='idSpan'>AD ID {cardId}</span>
             </div>
@@ -183,12 +183,12 @@ return(
           )
         })
       }
-    </div> */}
+    </div>
     <Footer />
       <div className="footer-last">
         <h2>Free Classifieds in Pakistan . © 2006-2022 OLX</h2>
       </div>
-    {/* </div> */}
+    </div>
     </>
           )
 }

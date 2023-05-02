@@ -134,8 +134,10 @@ const AddCards = () => {
             className="back"
             icon={faArrowLeft}
           ></FontAwesomeIcon>
+          </Link>
+          <Link to="/">
           <img src={logo}></img>
-        </Link>
+          </Link>
       </div>
       <div className="sellh2">
         <h1>POST YOUR AD</h1>
@@ -173,7 +175,7 @@ const AddCards = () => {
                 type)
               </span>
             </label>
-            <lable htmlFor="detailsInput2" className="detailsLabel">
+            <label htmlFor="detailsInput2" className="detailsLabel">
               <span className="detailsSpan2">Description</span>
               <textarea
                 id="detailsInput2"
@@ -187,7 +189,7 @@ const AddCards = () => {
               <span className="detailsSpan-2">
                 Include condition, features and reason for selling
               </span>
-            </lable>
+            </label>
             <div className="condition">
               <h3>Condition</h3>
               <div className="checkLabel">
