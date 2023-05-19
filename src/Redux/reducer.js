@@ -7,7 +7,9 @@ const reducer = (state = [] , action) => {
               ...state,
               {
                   categories: action.payload.category,
-                  subcategories: action.payload.subCategory
+                  subcategories: action.payload.subcategory,
+                  thirdcategory: action.payload.thirdcategory,
+                  iid: action.payload.iid
               }
           ]
           break;

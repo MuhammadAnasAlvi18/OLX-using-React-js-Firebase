@@ -27,10 +27,12 @@ const AddCards = () => {
   const [number, setnumber] = useState("");
   const [categoryy, setcategoryy] = useState("");
   const [subcategoryy, setsubcategoryy] = useState("");
+  const [thirdcategory,setthirdcategory] = useState("");
   const [msg, setmsg] = useState("");
   const [colors, setcolors] = useState("");
   const [coverImage, setcoverImage] = useState(null);
   const [coverImageURL, setcoverImageURL] = useState([]);
+  const [btnClass , setbtnClass] = useState("");
   const [image1, setimage1] = useState([]);
   const [image2, setimage2] = useState([]);
   const [image3, setimage3] = useState([]);
@@ -58,12 +60,13 @@ const AddCards = () => {
   const storage = getStorage(app);
 
   useEffect(async () => {
-    console.log(stores);
-    setcategoryy(stores[1].categories);
-    setsubcategoryy(stores[1].subcategories);
+    setcategoryy(stores[stores.length - 1].categories);
+    setsubcategoryy(stores[stores.length - 1].subcategories);
+    setthirdcategory(stores[stores.length - 1].thirdcategory)
   }, []);
 
   const addCard = async (e) => {
+    setbtnClass("active");
     e.preventDefault();
     files.map((imagesURL)=>{
       filesURL.push(imagesURL);
@@ -106,9 +109,10 @@ const AddCards = () => {
         });
         console.log("Document written with ID: ", docRef.id);
         setmsg("Your Ad Post Successfully");
+        setbtnClass("");
         setcolors("green");
         setTimeout(()=>{
-          setmsg("")
+        setmsg("")
         },2000)
       } catch (e) {
         console.error("Error adding document: ", e);
@@ -151,6 +155,10 @@ const AddCards = () => {
               <h3>{categoryy}</h3>
               <h3>/</h3>
               <h3>{subcategoryy}</h3>
+              {thirdcategory && <>
+              <h3>/</h3>
+              <h3>{thirdcategory}</h3>
+              </>}
               <h3>
                 <a href="#">Change</a>
               </h3>
@@ -1075,7 +1083,7 @@ const AddCards = () => {
           </div>
           <div className="postDiv">
             <span style={{ color: colors }}>{msg}</span>
-            <button onClick={addCard}>Post now</button>
+            <button onClick={addCard} className={btnClass}>Post now</button>
           </div>
         </div>
       </div>

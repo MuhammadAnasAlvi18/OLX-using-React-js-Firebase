@@ -1,7 +1,7 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { createContext, useEffect, useState } from "react";
 import "../App.css";
-import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
+import { faArrowLeft, faBook, faBuildingColumns, faBusinessTime, faChild } from "@fortawesome/free-solid-svg-icons";
 import logo from "../images/olx-logo-vector-black.png";
 import { faMobileScreenButton } from "@fortawesome/free-solid-svg-icons";
 import {
@@ -14,8 +14,9 @@ import {
   faCouch,
   faShirt,
   faGuitar,
+  faBoltLightning,
 } from "@fortawesome/free-solid-svg-icons";
-import { Link } from "react-router-dom";
+import { Link , useNavigate } from "react-router-dom";
 import AddCards from "./AddCards";
 import store from "../Redux/store";
 
@@ -32,11 +33,10 @@ const Sell = () => {
       payload: {
         category: category,
         subcategory: subCategory,
+        thirdcategory: thirdcategory,
       },
     });
 
-    console.log(category);
-    console.log(subCategory);
   }, [category, subCategory]);
 
   // const setcategory = (categories) => {
@@ -125,7 +125,7 @@ const Sell = () => {
                     <div className="sell-category-name">
                       <FontAwesomeIcon
                         className="carIcon"
-                        icon={faCar}
+                        icon={faBuildingColumns}
                       ></FontAwesomeIcon>
                       <h4 className="vehicles">Property for Sale</h4>
                     </div>
@@ -165,7 +165,7 @@ const Sell = () => {
                     <div className="sell-category-name">
                       <FontAwesomeIcon
                         className="carIcon"
-                        icon={faCar}
+                        icon={faBoltLightning}
                       ></FontAwesomeIcon>
                       <h4 className="vehicles">
                         Electronics & Home Appliances
@@ -207,7 +207,7 @@ const Sell = () => {
                     <div className="sell-category-name">
                       <FontAwesomeIcon
                         className="carIcon"
-                        icon={faCar}
+                        icon={faBusinessTime}
                       ></FontAwesomeIcon>
                       <h4 className="vehicles">
                         Bussiness, Industrial & Agriculture
@@ -329,7 +329,7 @@ const Sell = () => {
                     <div className="sell-category-name">
                       <FontAwesomeIcon
                         className="carIcon"
-                        icon={faCar}
+                        icon={faBook}
                       ></FontAwesomeIcon>
                       <h4 className="vehicles">Books, Sports & Hobbies</h4>
                     </div>
@@ -349,7 +349,7 @@ const Sell = () => {
                     <div className="sell-category-name">
                       <FontAwesomeIcon
                         className="carIcon"
-                        icon={faGuitar}
+                        icon={faChild}
                       ></FontAwesomeIcon>
                       <h4 className="vehicles">Kids</h4>
                     </div>
@@ -373,6 +373,9 @@ const Sell = () => {
                             <div
                               className="sell-category-div"
                               onClick={() => {
+                                setsubCategory("Tablets");
+                              }}
+                              onMouseOver={() => {
                                 setsubCategory("Tablets");
                               }}
                             >
@@ -407,6 +410,9 @@ const Sell = () => {
                               onClick={() => {
                                 setsubCategory("Mobile Phones");
                               }}
+                              onMouseOver={() => {
+                                setsubCategory("Mobile Phones");
+                              }}
                             >
                               <h4>Mobile Phones</h4>
                             </div>
@@ -418,6 +424,9 @@ const Sell = () => {
                             <div
                               className="sell-category-div"
                               onClick={() => {
+                                setsubCategory("Smart Watches");
+                              }}
+                              onMouseOver={() => {
                                 setsubCategory("Smart Watches");
                               }}
                             >
@@ -435,7 +444,7 @@ const Sell = () => {
                           >
                             <div
                               className="sell-category-div"
-                              onClick={() => {
+                              onMouseOver={() => {
                                 setsubCategory("Cars");
                               }}
                             >
@@ -448,7 +457,7 @@ const Sell = () => {
                           >
                             <div
                               className="sell-category-div"
-                              onClick={() => {
+                              onMouseOver={() => {
                                 setsubCategory("Cars on Installment");
                               }}
                             >
@@ -461,7 +470,7 @@ const Sell = () => {
                           >
                             <div
                               className="sell-category-div"
-                              onClick={() => {
+                              onMouseOver={() => {
                                 setsubCategory("Cars Accessories");
                               }}
                             >
@@ -474,7 +483,7 @@ const Sell = () => {
                           >
                             <div
                               className="sell-category-div"
-                              onClick={() => {
+                              onMouseOver={() => {
                                 setsubCategory("Spare Parts");
                               }}
                             >
@@ -487,7 +496,7 @@ const Sell = () => {
                           >
                             <div
                               className="sell-category-div"
-                              onClick={() => {
+                              onMouseOver={() => {
                                 setsubCategory("Buses, Vans & Trucks");
                               }}
                             >
@@ -500,7 +509,7 @@ const Sell = () => {
                           >
                             <div
                               className="sell-category-div"
-                              onClick={() => {
+                              onMouseOver={() => {
                                 setsubCategory("Rickshaw & Chingchi");
                               }}
                             >
@@ -513,7 +522,7 @@ const Sell = () => {
                           >
                             <div
                               className="sell-category-div"
-                              onClick={() => {
+                              onMouseOver={() => {
                                 setsubCategory("Other Vehicles");
                               }}
                             >
@@ -526,7 +535,7 @@ const Sell = () => {
                           >
                             <div
                               className="sell-category-div"
-                              onClick={() => {
+                              onMouseOver={() => {
                                 setsubCategory("Boats");
                               }}
                             >
@@ -539,7 +548,7 @@ const Sell = () => {
                           >
                             <div
                               className="sell-category-div"
-                              onClick={() => {
+                              onMouseOver={() => {
                                 setsubCategory("Tractors & Trailers");
                               }}
                             >
@@ -557,7 +566,7 @@ const Sell = () => {
                           >
                             <div
                               className="sell-category-div"
-                              onClick={() => {
+                              onMouseOver={() => {
                                 setsubCategory("Lands & Plots");
                               }}
                             >
@@ -570,7 +579,7 @@ const Sell = () => {
                           >
                             <div
                               className="sell-category-div"
-                              onClick={() => {
+                              onMouseOver={() => {
                                 setsubCategory("Houses");
                               }}
                             >
@@ -583,7 +592,7 @@ const Sell = () => {
                           >
                             <div
                               className="sell-category-div"
-                              onClick={() => {
+                              onMouseOver={() => {
                                 setsubCategory("Apartments & Flats");
                               }}
                             >
@@ -596,7 +605,7 @@ const Sell = () => {
                           >
                             <div
                               className="sell-category-div"
-                              onClick={() => {
+                              onMouseOver={() => {
                                 setsubCategory(
                                   "Shops - Offices - Commercial Space"
                                 );
@@ -611,7 +620,7 @@ const Sell = () => {
                           >
                             <div
                               className="sell-category-div"
-                              onClick={() => {
+                              onMouseOver={() => {
                                 setsubCategory("Portions & Floors");
                               }}
                             >
@@ -629,7 +638,7 @@ const Sell = () => {
                           >
                             <div
                               className="sell-category-div"
-                              onClick={() => {
+                              onMouseOver={() => {
                                 setsubCategory("Houses");
                               }}
                             >
@@ -642,7 +651,7 @@ const Sell = () => {
                           >
                             <div
                               className="sell-category-div"
-                              onClick={() => {
+                              onMouseOver={() => {
                                 setsubCategory("Apartments & Flats");
                               }}
                             >
@@ -655,7 +664,7 @@ const Sell = () => {
                           >
                             <div
                               className="sell-category-div"
-                              onClick={() => {
+                              onMouseOver={() => {
                                 setsubCategory("Portions & Floors");
                               }}
                             >
@@ -668,7 +677,7 @@ const Sell = () => {
                           >
                             <div
                               className="sell-category-div"
-                              onClick={() => {
+                              onMouseOver={() => {
                                 setsubCategory(
                                   "Shops - Offices - Commercial Space"
                                 );
@@ -683,7 +692,7 @@ const Sell = () => {
                           >
                             <div
                               className="sell-category-div"
-                              onClick={() => {
+                              onMouseOver={() => {
                                 setsubCategory("Rooms");
                               }}
                             >
@@ -696,7 +705,7 @@ const Sell = () => {
                           >
                             <div
                               className="sell-category-div"
-                              onClick={() => {
+                              onMouseOver={() => {
                                 setsubCategory("Roommates & Paying Guests");
                               }}
                             >
@@ -709,7 +718,7 @@ const Sell = () => {
                           >
                             <div
                               className="sell-category-div"
-                              onClick={() => {
+                              onMouseOver={() => {
                                 setsubCategory(
                                   "Vacation Rentals & Guest Houses"
                                 );
@@ -724,7 +733,7 @@ const Sell = () => {
                           >
                             <div
                               className="sell-category-div"
-                              onClick={() => {
+                              onMouseOver={() => {
                                 setsubCategory("Lands & Plots");
                               }}
                             >
@@ -742,7 +751,7 @@ const Sell = () => {
                           >
                             <div
                               className="sell-category-div"
-                              onClick={() => {
+                              onMouseOver={() => {
                                 setsubCategory("Computers & Accessories");
                               }}
                             >
@@ -755,7 +764,7 @@ const Sell = () => {
                           >
                             <div
                               className="sell-category-div"
-                              onClick={() => {
+                              onMouseOver={() => {
                                 setsubCategory("TV - Video - Audio");
                               }}
                             >
@@ -768,7 +777,7 @@ const Sell = () => {
                           >
                             <div
                               className="sell-category-div"
-                              onClick={() => {
+                              onMouseOver={() => {
                                 setsubCategory("Cameras & Accessories");
                               }}
                             >
@@ -781,7 +790,7 @@ const Sell = () => {
                           >
                             <div
                               className="sell-category-div"
-                              onClick={() => {
+                              onMouseOver={() => {
                                 setsubCategory("Games & Entertainment");
                               }}
                             >
@@ -794,7 +803,7 @@ const Sell = () => {
                           >
                             <div
                               className="sell-category-div"
-                              onClick={() => {
+                              onMouseOver={() => {
                                 setsubCategory("Other Home Appliances");
                               }}
                             >
@@ -807,7 +816,7 @@ const Sell = () => {
                           >
                             <div
                               className="sell-category-div"
-                              onClick={() => {
+                              onMouseOver={() => {
                                 setsubCategory(
                                   "Generators, UPS & Power Solutions"
                                 );
@@ -822,7 +831,7 @@ const Sell = () => {
                           >
                             <div
                               className="sell-category-div"
-                              onClick={() => {
+                              onMouseOver={() => {
                                 setsubCategory("Kitchen Appliances");
                               }}
                             >
@@ -835,7 +844,7 @@ const Sell = () => {
                           >
                             <div
                               className="sell-category-div"
-                              onClick={() => {
+                              onMouseOver={() => {
                                 setsubCategory("AC & Coolers");
                               }}
                             >
@@ -848,7 +857,7 @@ const Sell = () => {
                           >
                             <div
                               className="sell-category-div"
-                              onClick={() => {
+                              onMouseOver={() => {
                                 setsubCategory("Fridges & Freezers");
                               }}
                             >
@@ -861,7 +870,7 @@ const Sell = () => {
                           >
                             <div
                               className="sell-category-div"
-                              onClick={() => {
+                              onMouseOver={() => {
                                 setsubCategory("Washing Machines & Dryers");
                               }}
                             >
@@ -879,7 +888,7 @@ const Sell = () => {
                           >
                             <div
                               className="sell-category-div"
-                              onClick={() => {
+                              onMouseOver={() => {
                                 setsubCategory("Motorcycles");
                               }}
                             >
@@ -892,7 +901,7 @@ const Sell = () => {
                           >
                             <div
                               className="sell-category-div"
-                              onClick={() => {
+                              onMouseOver={() => {
                                 setsubCategory("Spare Parts");
                               }}
                             >
@@ -905,7 +914,7 @@ const Sell = () => {
                           >
                             <div
                               className="sell-category-div"
-                              onClick={() => {
+                              onMouseOver={() => {
                                 setsubCategory("Bicycles");
                               }}
                             >
@@ -918,7 +927,7 @@ const Sell = () => {
                           >
                             <div
                               className="sell-category-div"
-                              onClick={() => {
+                              onMouseOver={() => {
                                 setsubCategory("ATV & Quads");
                               }}
                             >
@@ -931,7 +940,7 @@ const Sell = () => {
                           >
                             <div
                               className="sell-category-div"
-                              onClick={() => {
+                              onMouseOver={() => {
                                 setsubCategory("Scooters");
                               }}
                             >
@@ -949,7 +958,7 @@ const Sell = () => {
                           >
                             <div
                               className="sell-category-div"
-                              onClick={() => {
+                              onMouseOver={() => {
                                 setsubCategory("Business for Sale");
                               }}
                             >
@@ -962,7 +971,7 @@ const Sell = () => {
                           >
                             <div
                               className="sell-category-div"
-                              onClick={() => {
+                              onMouseOver={() => {
                                 setsubCategory("Food & Restaurants");
                               }}
                             >
@@ -975,7 +984,7 @@ const Sell = () => {
                           >
                             <div
                               className="sell-category-div"
-                              onClick={() => {
+                              onMouseOver={() => {
                                 setsubCategory("Trade & Industrial");
                               }}
                             >
@@ -988,7 +997,7 @@ const Sell = () => {
                           >
                             <div
                               className="sell-category-div"
-                              onClick={() => {
+                              onMouseOver={() => {
                                 setsubCategory(
                                   "Construction & Heavy Machinery"
                                 );
@@ -1003,7 +1012,7 @@ const Sell = () => {
                           >
                             <div
                               className="sell-category-div"
-                              onClick={() => {
+                              onMouseOver={() => {
                                 setsubCategory("Agriculture");
                               }}
                             >
@@ -1016,7 +1025,7 @@ const Sell = () => {
                           >
                             <div
                               className="sell-category-div"
-                              onClick={() => {
+                              onMouseOver={() => {
                                 setsubCategory("Other Business & Industry");
                               }}
                             >
@@ -1029,7 +1038,7 @@ const Sell = () => {
                           >
                             <div
                               className="sell-category-div"
-                              onClick={() => {
+                              onMouseOver={() => {
                                 setsubCategory("Medical & Pharma");
                               }}
                             >
@@ -1047,7 +1056,7 @@ const Sell = () => {
                           >
                             <div
                               className="sell-category-div"
-                              onClick={() => {
+                              onMouseOver={() => {
                                 setsubCategory("Education & Classes");
                               }}
                             >
@@ -1060,7 +1069,7 @@ const Sell = () => {
                           >
                             <div
                               className="sell-category-div"
-                              onClick={() => {
+                              onMouseOver={() => {
                                 setsubCategory("Travel & Visa");
                               }}
                             >
@@ -1073,7 +1082,7 @@ const Sell = () => {
                           >
                             <div
                               className="sell-category-div"
-                              onClick={() => {
+                              onMouseOver={() => {
                                 setsubCategory("Car Rental");
                               }}
                             >
@@ -1086,7 +1095,7 @@ const Sell = () => {
                           >
                             <div
                               className="sell-category-div"
-                              onClick={() => {
+                              onMouseOver={() => {
                                 setsubCategory("Drivers & Taxi");
                               }}
                             >
@@ -1099,7 +1108,7 @@ const Sell = () => {
                           >
                             <div
                               className="sell-category-div"
-                              onClick={() => {
+                              onMouseOver={() => {
                                 setsubCategory("Web Development");
                               }}
                             >
@@ -1112,7 +1121,7 @@ const Sell = () => {
                           >
                             <div
                               className="sell-category-div"
-                              onClick={() => {
+                              onMouseOver={() => {
                                 setsubCategory("Other Services");
                               }}
                             >
@@ -1125,7 +1134,7 @@ const Sell = () => {
                           >
                             <div
                               className="sell-category-div"
-                              onClick={() => {
+                              onMouseOver={() => {
                                 setsubCategory("Electronics & Computer Repair");
                               }}
                             >
@@ -1138,7 +1147,7 @@ const Sell = () => {
                           >
                             <div
                               className="sell-category-div"
-                              onClick={() => {
+                              onMouseOver={() => {
                                 setsubCategory("Event Services");
                               }}
                             >
@@ -1151,7 +1160,7 @@ const Sell = () => {
                           >
                             <div
                               className="sell-category-div"
-                              onClick={() => {
+                              onMouseOver={() => {
                                 setsubCategory("Health & Beauty");
                               }}
                             >
@@ -1164,7 +1173,7 @@ const Sell = () => {
                           >
                             <div
                               className="sell-category-div"
-                              onClick={() => {
+                              onMouseOver={() => {
                                 setsubCategory("Maids & Domestic Help");
                               }}
                             >
@@ -1177,7 +1186,7 @@ const Sell = () => {
                           >
                             <div
                               className="sell-category-div"
-                              onClick={() => {
+                              onMouseOver={() => {
                                 setsubCategory("Movers & Packers");
                               }}
                             >
@@ -1190,7 +1199,7 @@ const Sell = () => {
                           >
                             <div
                               className="sell-category-div"
-                              onClick={() => {
+                              onMouseOver={() => {
                                 setsubCategory("Home & Office Repair");
                               }}
                             >
@@ -1203,7 +1212,7 @@ const Sell = () => {
                           >
                             <div
                               className="sell-category-div"
-                              onClick={() => {
+                              onMouseOver={() => {
                                 setsubCategory("Catering & Restaurant");
                               }}
                             >
@@ -1216,7 +1225,7 @@ const Sell = () => {
                           >
                             <div
                               className="sell-category-div"
-                              onClick={() => {
+                              onMouseOver={() => {
                                 setsubCategory("Farm & Fresh Food");
                               }}
                             >
@@ -1234,7 +1243,7 @@ const Sell = () => {
                           >
                             <div
                               className="sell-category-div"
-                              onClick={() => {
+                              onMouseOver={() => {
                                 setsubCategory("Online");
                               }}
                             >
@@ -1247,7 +1256,7 @@ const Sell = () => {
                           >
                             <div
                               className="sell-category-div"
-                              onClick={() => {
+                              onMouseOver={() => {
                                 setsubCategory("Marketing");
                               }}
                             >
@@ -1260,7 +1269,7 @@ const Sell = () => {
                           >
                             <div
                               className="sell-category-div"
-                              onClick={() => {
+                              onMouseOver={() => {
                                 setsubCategory("Advertising & PR");
                               }}
                             >
@@ -1273,7 +1282,7 @@ const Sell = () => {
                           >
                             <div
                               className="sell-category-div"
-                              onClick={() => {
+                              onMouseOver={() => {
                                 setsubCategory("Education");
                               }}
                             >
@@ -1286,7 +1295,7 @@ const Sell = () => {
                           >
                             <div
                               className="sell-category-div"
-                              onClick={() => {
+                              onMouseOver={() => {
                                 setsubCategory("Customer Service");
                               }}
                             >
@@ -1299,7 +1308,7 @@ const Sell = () => {
                           >
                             <div
                               className="sell-category-div"
-                              onClick={() => {
+                              onMouseOver={() => {
                                 setsubCategory("Sales");
                               }}
                             >
@@ -1312,7 +1321,7 @@ const Sell = () => {
                           >
                             <div
                               className="sell-category-div"
-                              onClick={() => {
+                              onMouseOver={() => {
                                 setsubCategory("IT & Networking");
                               }}
                             >
@@ -1325,7 +1334,7 @@ const Sell = () => {
                           >
                             <div
                               className="sell-category-div"
-                              onClick={() => {
+                              onMouseOver={() => {
                                 setsubCategory("Hotels & Tourism");
                               }}
                             >
@@ -1338,7 +1347,7 @@ const Sell = () => {
                           >
                             <div
                               className="sell-category-div"
-                              onClick={() => {
+                              onMouseOver={() => {
                                 setsubCategory("Clerical & Administration");
                               }}
                             >
@@ -1351,7 +1360,7 @@ const Sell = () => {
                           >
                             <div
                               className="sell-category-div"
-                              onClick={() => {
+                              onMouseOver={() => {
                                 setsubCategory("Human Resources");
                               }}
                             >
@@ -1364,7 +1373,7 @@ const Sell = () => {
                           >
                             <div
                               className="sell-category-div"
-                              onClick={() => {
+                              onMouseOver={() => {
                                 setsubCategory("Accounting & Finance");
                               }}
                             >
@@ -1377,7 +1386,7 @@ const Sell = () => {
                           >
                             <div
                               className="sell-category-div"
-                              onClick={() => {
+                              onMouseOver={() => {
                                 setsubCategory("Manufacturing");
                               }}
                             >
@@ -1390,7 +1399,7 @@ const Sell = () => {
                           >
                             <div
                               className="sell-category-div"
-                              onClick={() => {
+                              onMouseOver={() => {
                                 setsubCategory("Medical");
                               }}
                             >
@@ -1403,7 +1412,7 @@ const Sell = () => {
                           >
                             <div
                               className="sell-category-div"
-                              onClick={() => {
+                              onMouseOver={() => {
                                 setsubCategory("Part - Time");
                               }}
                             >
@@ -1421,7 +1430,7 @@ const Sell = () => {
                           >
                             <div
                               className="sell-category-div"
-                              onClick={() => {
+                              onMouseOver={() => {
                                 setsubCategory("Fish & Aquariums");
                               }}
                             >
@@ -1434,7 +1443,7 @@ const Sell = () => {
                           >
                             <div
                               className="sell-category-div"
-                              onClick={() => {
+                              onMouseOver={() => {
                                 setsubCategory("Birds");
                               }}
                             >
@@ -1447,7 +1456,7 @@ const Sell = () => {
                           >
                             <div
                               className="sell-category-div"
-                              onClick={() => {
+                              onMouseOver={() => {
                                 setsubCategory("Hens & Aseel");
                               }}
                             >
@@ -1460,7 +1469,7 @@ const Sell = () => {
                           >
                             <div
                               className="sell-category-div"
-                              onClick={() => {
+                              onMouseOver={() => {
                                 setsubCategory("sell-category-div");
                               }}
                             >
@@ -1473,7 +1482,7 @@ const Sell = () => {
                           >
                             <div
                               className="sell-category-div"
-                              onClick={() => {
+                              onMouseOver={() => {
                                 setsubCategory("Dogs");
                               }}
                             >
@@ -1486,7 +1495,7 @@ const Sell = () => {
                           >
                             <div
                               className="sell-category-div"
-                              onClick={() => {
+                              onMouseOver={() => {
                                 setsubCategory("Livestock");
                               }}
                             >
@@ -1499,7 +1508,7 @@ const Sell = () => {
                           >
                             <div
                               className="sell-category-div"
-                              onClick={() => {
+                              onMouseOver={() => {
                                 setsubCategory("Horses");
                               }}
                             >
@@ -1512,7 +1521,7 @@ const Sell = () => {
                           >
                             <div
                               className="sell-category-div"
-                              onClick={() => {
+                              onMouseOver={() => {
                                 setsubCategory("Pet Food & Accessories");
                               }}
                             >
@@ -1525,7 +1534,7 @@ const Sell = () => {
                           >
                             <div
                               className="sell-category-div"
-                              onClick={() => {
+                              onMouseOver={() => {
                                 setsubCategory("Other Animals");
                               }}
                             >
@@ -1543,7 +1552,7 @@ const Sell = () => {
                           >
                             <div
                               className="sell-category-div"
-                              onClick={() => {
+                              onMouseOver={() => {
                                 setsubCategory("Sofa & Chairs");
                               }}
                             >
@@ -1556,7 +1565,7 @@ const Sell = () => {
                           >
                             <div
                               className="sell-category-div"
-                              onClick={() => {
+                              onMouseOver={() => {
                                 setsubCategory("Beds & Wardrobes");
                               }}
                             >
@@ -1569,7 +1578,7 @@ const Sell = () => {
                           >
                             <div
                               className="sell-category-div"
-                              onClick={() => {
+                              onMouseOver={() => {
                                 setsubCategory("Home Decoration");
                               }}
                             >
@@ -1582,7 +1591,7 @@ const Sell = () => {
                           >
                             <div
                               className="sell-category-div"
-                              onClick={() => {
+                              onMouseOver={() => {
                                 setsubCategory("Tables & Dining");
                               }}
                             >
@@ -1595,7 +1604,7 @@ const Sell = () => {
                           >
                             <div
                               className="sell-category-div"
-                              onClick={() => {
+                              onMouseOver={() => {
                                 setsubCategory("Garden & Outdoor");
                               }}
                             >
@@ -1608,7 +1617,7 @@ const Sell = () => {
                           >
                             <div
                               className="sell-category-div"
-                              onClick={() => {
+                              onMouseOver={() => {
                                 setsubCategory("Painting & Mirrors");
                               }}
                             >
@@ -1621,7 +1630,7 @@ const Sell = () => {
                           >
                             <div
                               className="sell-category-div"
-                              onClick={() => {
+                              onMouseOver={() => {
                                 setsubCategory("Rugs & Carpets");
                               }}
                             >
@@ -1634,7 +1643,7 @@ const Sell = () => {
                           >
                             <div
                               className="sell-category-div"
-                              onClick={() => {
+                              onMouseOver={() => {
                                 setsubCategory("Curtains & Blinds");
                               }}
                             >
@@ -1647,7 +1656,7 @@ const Sell = () => {
                           >
                             <div
                               className="sell-category-div"
-                              onClick={() => {
+                              onMouseOver={() => {
                                 setsubCategory("Office Furniture");
                               }}
                             >
@@ -1660,7 +1669,7 @@ const Sell = () => {
                           >
                             <div
                               className="sell-category-div"
-                              onClick={() => {
+                              onMouseOver={() => {
                                 setsubCategory("Other Household Items");
                               }}
                             >
@@ -1678,7 +1687,7 @@ const Sell = () => {
                           >
                             <div
                               className="sell-category-div"
-                              onClick={() => {
+                              onMouseOver={() => {
                                 setsubCategory("Accessories");
                               }}
                             >
@@ -1691,7 +1700,7 @@ const Sell = () => {
                           >
                             <div
                               className="sell-category-div"
-                              onClick={() => {
+                              onMouseOver={() => {
                                 setsubCategory("Clothes");
                               }}
                             >
@@ -1704,7 +1713,7 @@ const Sell = () => {
                           >
                             <div
                               className="sell-category-div"
-                              onClick={() => {
+                              onMouseOver={() => {
                                 setsubCategory("Footwear");
                               }}
                             >
@@ -1717,7 +1726,7 @@ const Sell = () => {
                           >
                             <div
                               className="sell-category-div"
-                              onClick={() => {
+                              onMouseOver={() => {
                                 setsubCategory("Jewellery");
                               }}
                             >
@@ -1730,7 +1739,7 @@ const Sell = () => {
                           >
                             <div
                               className="sell-category-div"
-                              onClick={() => {
+                              onMouseOver={() => {
                                 setsubCategory("Make Up");
                               }}
                             >
@@ -1743,7 +1752,7 @@ const Sell = () => {
                           >
                             <div
                               className="sell-category-div"
-                              onClick={() => {
+                              onMouseOver={() => {
                                 setsubCategory("Skin & Hair");
                               }}
                             >
@@ -1756,7 +1765,7 @@ const Sell = () => {
                           >
                             <div
                               className="sell-category-div"
-                              onClick={() => {
+                              onMouseOver={() => {
                                 setsubCategory("Watches");
                               }}
                             >
@@ -1769,7 +1778,7 @@ const Sell = () => {
                           >
                             <div
                               className="sell-category-div"
-                              onClick={() => {
+                              onMouseOver={() => {
                                 setsubCategory("Wedding");
                               }}
                             >
@@ -1782,7 +1791,7 @@ const Sell = () => {
                           >
                             <div
                               className="sell-category-div"
-                              onClick={() => {
+                              onMouseOver={() => {
                                 setsubCategory("Lawn & Pret");
                               }}
                             >
@@ -1795,7 +1804,7 @@ const Sell = () => {
                           >
                             <div
                               className="sell-category-div"
-                              onClick={() => {
+                              onMouseOver={() => {
                                 setsubCategory("Couture");
                               }}
                             >
@@ -1808,7 +1817,7 @@ const Sell = () => {
                           >
                             <div
                               className="sell-category-div"
-                              onClick={() => {
+                              onMouseOver={() => {
                                 setsubCategory("Other Fashion");
                               }}
                             >
@@ -1826,7 +1835,7 @@ const Sell = () => {
                           >
                             <div
                               className="sell-category-div"
-                              onClick={() => {
+                              onMouseOver={() => {
                                 setsubCategory("Books & Magazines");
                               }}
                             >
@@ -1839,7 +1848,7 @@ const Sell = () => {
                           >
                             <div
                               className="sell-category-div"
-                              onClick={() => {
+                              onMouseOver={() => {
                                 setsubCategory("Musical Instruments");
                               }}
                             >
@@ -1852,7 +1861,7 @@ const Sell = () => {
                           >
                             <div
                               className="sell-category-div"
-                              onClick={() => {
+                              onMouseOver={() => {
                                 setsubCategory("Sports Equipment");
                               }}
                             >
@@ -1865,7 +1874,7 @@ const Sell = () => {
                           >
                             <div
                               className="sell-category-div"
-                              onClick={() => {
+                              onMouseOver={() => {
                                 setsubCategory("Gym & Fitness");
                               }}
                             >
@@ -1878,7 +1887,7 @@ const Sell = () => {
                           >
                             <div
                               className="sell-category-div"
-                              onClick={() => {
+                              onMouseOver={() => {
                                 setsubCategory("Other Hobbies");
                               }}
                             >
@@ -1896,7 +1905,7 @@ const Sell = () => {
                           >
                             <div
                               className="sell-category-div"
-                              onClick={() => {
+                              onMouseOver={() => {
                                 setsubCategory("Kids Furniture");
                               }}
                             >
@@ -1909,7 +1918,7 @@ const Sell = () => {
                           >
                             <div
                               className="sell-category-div"
-                              onClick={() => {
+                              onMouseOver={() => {
                                 setsubCategory("Toys");
                               }}
                             >
@@ -1922,7 +1931,7 @@ const Sell = () => {
                           >
                             <div
                               className="sell-category-div"
-                              onClick={() => {
+                              onMouseOver={() => {
                                 setsubCategory("Prams & Walkers");
                               }}
                             >
@@ -1935,7 +1944,7 @@ const Sell = () => {
                           >
                             <div
                               className="sell-category-div"
-                              onClick={() => {
+                              onMouseOver={() => {
                                 setsubCategory("Swings & Slides");
                               }}
                             >
@@ -1948,7 +1957,7 @@ const Sell = () => {
                           >
                             <div
                               className="sell-category-div"
-                              onClick={() => {
+                              onMouseOver={() => {
                                 setsubCategory("Kids Bikes");
                               }}
                             >
@@ -1961,7 +1970,7 @@ const Sell = () => {
                           >
                             <div
                               className="sell-category-div"
-                              onClick={() => {
+                              onMouseOver={() => {
                                 setsubCategory("Kids Accessories");
                               }}
                             >

@@ -335,7 +335,7 @@
   background-color: #ebeeef;
   display: flex;
   justify-content: center;
-  padding: 10px 0;
+  padding: 30px 0 10px;
 
 }
 
@@ -1094,6 +1094,12 @@
   height: 40px;
 }
 
+.uploadCards.active img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
 .fileUpload {
   width: 100%;
   height: 100%;
@@ -1125,9 +1131,16 @@
 
 .cardDtlMain {
   width: 100%;
-  height: 135vh;
-  z-index: -1;
-  padding-top: 150px;
+  min-height: 60vh;
+  padding: 80px 0 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.cardDtlMain .row{
+  width: 100%;
 }
 
 .cardDtl2 {
@@ -1460,7 +1473,8 @@
   width: 100%;
   height: 80%;
   overflow: hidden;
-  border: 10px solid #000;
+  border: 1px solid #002f34;
+  background: #000;
   object-fit: cover;
   object-position: center;
 }
@@ -1490,6 +1504,7 @@
 .aa1Coverimage img {
   width: 100%;
   height: 100%;
+  object-fit: contain;
 }
 
 .cardLink {
@@ -1972,4 +1987,324 @@
 
 .sell-categories-right{
   border-left: 1px solid rgba(0, 47, 52, .36);
+}
+
+/* CARD DETAIL NEW CSS */
+
+.card-detail-left-img{
+  width: 100%;
+  height: 500px;
+  border-radius: 5px;
+  background: #000;
+  margin-bottom: 20px;
+}
+
+.card-detail-left-img img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.card-detail-left-ad-detail{
+  width: 100%;
+  border: 1px solid #d8dfe0;
+  border-radius: 5px;
+  padding: 30px 20px 20px;
+  margin-bottom: 20px;
+}
+
+.card-detail-left-ad-detail-flex{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.card-detail-left-ad-detail-flex h3{
+  font-size: 36px;
+  font-weight: bold;
+  margin-bottom: 0;
+}
+
+.card-detail-left-icons{
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.card-detail-left-icons svg{
+  font-size: 26px;
+}
+
+.card-detail-left-ad-detail h5{
+  width: 80%;
+  font-size: 18px;
+  font-weight: 600;
+  color: #000;
+  padding: 15px 0 10px;
+}
+
+.card-detail-left-location{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.card-detail-left-location h6{
+  margin-bottom: 0;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.card-detail-left-ad-detail-flex span{
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.card-detail-carousel{
+  width: 100%;
+  height: 100%;
+}
+
+.card-detail-carousel .carousel-inner{
+  height: 100%;
+}
+
+.card-detail-carousel .carousel-item img{
+  width: 100%;
+  height: 500px;
+  object-fit: contain;
+}
+
+.card-detail-carousel .carousel-control-next,.card-detail-carousel .carousel-control-prev{
+  width: 12%;
+  opacity: 1;
+  color: #fff;
+}
+
+.card-detail-left-ad-info{
+  width: 100%;
+  border: 1px solid #d8dfe0;
+  border-radius: 5px;
+  padding: 30px 20px 20px;
+  margin-bottom: 20px;
+}
+
+.card-detail-left-ad-info-flex-main{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 60px;
+}
+
+.card-detail-left-ad-info-flex{
+  width: 40%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 0 10px;
+}
+
+.card-detail-left-ad-info-flex h5,.card-detail-left-ad-info-flex h6{
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.card-detail-left-ad-info-flex h6{
+  font-weight: 600;
+}
+
+.card-detail-left-ad-info h3 {
+  font-size: 24px;
+  font-weight: 600;
+  padding-bottom: 10px;
+}
+
+.card-detail-left-ad-description{
+  width: 100%;
+  border: 1px solid #d8dfe0;
+  border-radius: 5px;
+  padding: 30px 20px 20px;
+  margin-bottom: 20px;
+}
+
+.card-detail-left-ad-description h3{
+  font-size: 24px;
+  font-weight: 600;
+  padding-bottom: 10px;
+}
+
+.card-detail-left-ad-description p{
+  font-size: 14px;
+  font-weight: 400;
+  padding-top: 10px;
+}
+
+.card-detail-right-profile-detail {
+  width: 100%;
+  border-radius: 5px;
+  border: 1px solid #d8dfe0;
+  padding: 20px 15px;
+  margin-bottom: 50px;
+}
+
+.card-detail-right-profile-detail-flex{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.avatar-wrapper{
+  width: 70px;
+  height: 70px;
+}
+
+.avatar-wrapper img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.text-wrapper h5{
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.text-wrapper h5 svg{
+  padding-left: 10px;
+}
+
+.text-wrapper h6{
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.btn-wrapper{
+  padding-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+}
+
+.btn-wrapper a{
+  width: 100%;
+  padding: 12px 0;
+  background: #002f34;
+  border: 2px solid #002f34;
+  text-align: center;
+  text-decoration: none;
+  color: #fff;
+  border-radius: 5px;
+  font-size: 16px;
+  font-weight: 600;
+  transition: 0.6s ease;
+}
+
+.btn-wrapper a:hover{
+  background: #fff;
+  color: #002f34;
+}
+
+.btn-wrapper .btn-wrapper-white{
+  background: #fff;
+  color: #002f34;
+}
+
+.btn-wrapper .btn-wrapper-white:hover{
+  color: #fff;
+  background: #002f34;
+}
+
+.btn-wrapper a svg{
+  padding-right: 10px;
+}
+
+.card-detail-right-location{
+  width: 100%;
+  border: 1px solid #d8dfe0;
+  border-radius: 5px;
+  padding: 20px 20px;
+  margin-bottom: 20px;
+}
+
+.card-detail-right-location h3{
+  font-size: 24px;
+  font-weight: 600;
+  padding-bottom: 10px;
+}
+
+.card-detail-right-id{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.card-detail-right-id h5{
+  font-size: 14px;
+  margin-bottom: 0;
+  font-weight: 400;
+}
+
+.card-detail-right-id h6{
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 0;
+}
+
+.card-detail-right-id h6 svg{
+  padding-right: 10px;
+}
+
+.loader{
+  width: 100px;
+  height: 100px;
+  border: 8px solid #002f34;
+  border-left-color: transparent;
+  border-radius: 50%;
+  animation: rotate 1s linear infinite;
+}
+
+@keyframes rotate{
+  0%{
+    transform: rotate(0deg);
+  }
+  100%{
+    transform: rotate(360deg);
+  }
+}
+
+.loader-main{
+  width: 100%;
+  height: 50vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.postDiv button{
+  position: relative;
+}
+
+.postDiv button::before {
+  content: "";
+  position: absolute;
+  top: 20%;
+  left: 40%;
+  transform: translate(-50%,-50%);
+  width: 25px;
+  height: 25px;
+  border: 3px solid #fff;
+  border-left-color: transparent;
+  border-radius: 50%;
+  display: none;
+  animation: rotate 1s linear infinite;
+}
+
+.postDiv button.active{
+  color: #002f34;
+}
+
+.postDiv button.active::before{
+  display: block;
 }

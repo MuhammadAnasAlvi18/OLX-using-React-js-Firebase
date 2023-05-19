@@ -52,7 +52,7 @@ const Card = () => {
       <div className="container">
       <div className="row">
         {
-          cardData.map((cards , index)=>{
+          cardData.length>0? cardData.map((cards , index)=>{
             let cardIds = id[index];
             return(
           <div key={index + 100}
@@ -69,14 +69,17 @@ const Card = () => {
                 <h3>{cards.title}</h3>
                 <FontAwesomeIcon icon={faHeart}/>
               </div>
-              <h4>Rs {cards.price}</h4>
+              <h4>Rs {Number(cards.price).toLocaleString()}</h4>
               <p>{cards.location} ,Karachi • <span>6 minutes ago</span></p>
             </div>
             </Link>
           </div>
         </div>
             )
-          })
+          }) : 
+          <div className="loader-main">
+            <div className="loader"></div>
+          </div>
         }
     </div>
     </div>
