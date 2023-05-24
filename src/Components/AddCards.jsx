@@ -27,12 +27,12 @@ const AddCards = () => {
   const [number, setnumber] = useState("");
   const [categoryy, setcategoryy] = useState("");
   const [subcategoryy, setsubcategoryy] = useState("");
-  const [thirdcategory,setthirdcategory] = useState("");
+  const [thirdcategory, setthirdcategory] = useState("");
   const [msg, setmsg] = useState("");
   const [colors, setcolors] = useState("");
   const [coverImage, setcoverImage] = useState(null);
   const [coverImageURL, setcoverImageURL] = useState([]);
-  const [btnClass , setbtnClass] = useState("");
+  const [btnClass, setbtnClass] = useState("");
   const [image1, setimage1] = useState([]);
   const [image2, setimage2] = useState([]);
   const [image3, setimage3] = useState([]);
@@ -52,8 +52,8 @@ const AddCards = () => {
   const [image17, setimage17] = useState([]);
   const [image18, setimage18] = useState([]);
   const [image19, setimage19] = useState([]);
-  const [files , setfiles] = useState([]);
-  const [filesURL , setfilesURL] = useState([]);
+  const [files, setfiles] = useState([]);
+  const [filesURL, setfilesURL] = useState([]);
   const stores = store.getState();
   const uid = "123456789";
   const db = getFirestore(app);
@@ -62,16 +62,16 @@ const AddCards = () => {
   useEffect(async () => {
     setcategoryy(stores[stores.length - 1].categories);
     setsubcategoryy(stores[stores.length - 1].subcategories);
-    setthirdcategory(stores[stores.length - 1].thirdcategory)
+    setthirdcategory(stores[stores.length - 1].thirdcategory);
   }, []);
 
   const addCard = async (e) => {
     setbtnClass("active");
     e.preventDefault();
-    files.map((imagesURL)=>{
+    files.map((imagesURL) => {
       filesURL.push(imagesURL);
       setfilesURL(filesURL);
-    })
+    });
 
     const storageRef = ref(storage, `images/${coverImage.name}`);
     const uploadTask = uploadBytesResumable(storageRef, coverImage);
@@ -105,15 +105,15 @@ const AddCards = () => {
           uid: uid,
           cover: coverImageURL,
           moreimages: filesURL,
-          time : new Date().getTime()
+          time: new Date().getTime(),
         });
         console.log("Document written with ID: ", docRef.id);
         setmsg("Your Ad Post Successfully");
         setbtnClass("");
         setcolors("green");
-        setTimeout(()=>{
-        setmsg("")
-        },2000)
+        setTimeout(() => {
+          setmsg("");
+        }, 2000);
       } catch (e) {
         console.error("Error adding document: ", e);
         setcolors("red");
@@ -138,10 +138,10 @@ const AddCards = () => {
             className="back"
             icon={faArrowLeft}
           ></FontAwesomeIcon>
-          </Link>
-          <Link to="/">
+        </Link>
+        <Link to="/">
           <img src={logo}></img>
-          </Link>
+        </Link>
       </div>
       <div className="sellh2">
         <h1>POST YOUR AD</h1>
@@ -155,12 +155,14 @@ const AddCards = () => {
               <h3>{categoryy}</h3>
               <h3>/</h3>
               <h3>{subcategoryy}</h3>
-              {thirdcategory && <>
-              <h3>/</h3>
-              <h3>{thirdcategory}</h3>
-              </>}
+              {thirdcategory && (
+                <>
+                  <h3>/</h3>
+                  <h3>{thirdcategory}</h3>
+                </>
+              )}
               <h3>
-                <a href="#">Change</a>
+                <Link to={-1}>Change</Link>
               </h3>
             </div>
           </div>
@@ -188,6 +190,7 @@ const AddCards = () => {
               <textarea
                 id="detailsInput2"
                 maxLength="4096"
+                rows='5'
                 autoComplete="nope"
                 value={description}
                 onChange={(e) => {
@@ -198,7 +201,9 @@ const AddCards = () => {
                 Include condition, features and reason for selling
               </span>
             </label>
-            <div className="condition">
+            {
+              categoryy === "Mobiles" && 
+              <div className="condition">
               <h3>Condition</h3>
               <div className="checkLabel">
                 <label className="labelses">
@@ -227,11 +232,12 @@ const AddCards = () => {
                 </label>
               </div>
             </div>
+            }
             <div className="setAprice">
               <h2>Set A Price</h2>
               <span>Price</span>
               <input
-                type="text"
+                type="number"
                 value={price}
                 onChange={(e) => {
                   setprice(e.target.value);
@@ -253,7 +259,7 @@ const AddCards = () => {
                       }
                     }}
                   ></input>
-                  <img src={camera}></img>
+                  <img src={camera} className="upload-img"></img>
                 </label>
                 <label className="uploadCards">
                   <input
@@ -275,26 +281,28 @@ const AddCards = () => {
                           img1
                         );
                         let ImagedownloadURL1;
-                        
+
                         uploadTask1.on("state_changed", (snapshot) => {
-                          getDownloadURL(uploadTask1.snapshot.ref).then((downloadURL) => {
-                            console.log("File available at", downloadURL);
-                            ImagedownloadURL1 = downloadURL;
-                            image1.push(ImagedownloadURL1)
-                            setimage1(image1);
-                            console.log(image1);
-                            ImagedownloadURL1=("");
-                            if(image1.length>0){
-                              files.push(image1[0]);
-                              setfiles(files);
-                              console.log(files);
+                          getDownloadURL(uploadTask1.snapshot.ref).then(
+                            (downloadURL) => {
+                              console.log("File available at", downloadURL);
+                              ImagedownloadURL1 = downloadURL;
+                              image1.push(ImagedownloadURL1);
+                              setimage1(image1);
+                              console.log(image1);
+                              ImagedownloadURL1 = "";
+                              if (image1.length > 0) {
+                                files.push(image1[0]);
+                                setfiles(files);
+                                console.log(files);
+                              }
                             }
-                          });
+                          );
                         });
-                      }                     
+                      }
                     }}
                   ></input>
-                  <img src={camera}></img>
+                  <img src={camera} className="upload-img"></img>
                 </label>
                 <label className="uploadCards">
                   <input
@@ -315,26 +323,28 @@ const AddCards = () => {
                           img2
                         );
                         let ImagedownloadURL2;
-                        
+
                         uploadTask2.on("state_changed", (snapshot) => {
-                          getDownloadURL(uploadTask2.snapshot.ref).then((downloadURL) => {
-                            console.log("File available at", downloadURL);
-                            ImagedownloadURL2 = downloadURL;
-                            image2.push(ImagedownloadURL2)
-                            setimage2(image2);
-                            console.log(image2);
-                            ImagedownloadURL2=("");
-                            if(image2.length>0){
-                              files.push(image2[0]);
-                              setfiles(files);
-                              console.log(files);
+                          getDownloadURL(uploadTask2.snapshot.ref).then(
+                            (downloadURL) => {
+                              console.log("File available at", downloadURL);
+                              ImagedownloadURL2 = downloadURL;
+                              image2.push(ImagedownloadURL2);
+                              setimage2(image2);
+                              console.log(image2);
+                              ImagedownloadURL2 = "";
+                              if (image2.length > 0) {
+                                files.push(image2[0]);
+                                setfiles(files);
+                                console.log(files);
+                              }
                             }
-                          });
+                          );
                         });
                       }
                     }}
                   ></input>
-                  <img src={camera}></img>
+                  <img src={camera} className="upload-img"></img>
                 </label>
                 <label className="uploadCards">
                   <input
@@ -356,26 +366,28 @@ const AddCards = () => {
                           img3
                         );
                         let ImagedownloadURL3;
-                        
+
                         uploadTask3.on("state_changed", (snapshot) => {
-                          getDownloadURL(uploadTask3.snapshot.ref).then((downloadURL) => {
-                            console.log("File available at", downloadURL);
-                            ImagedownloadURL3 = downloadURL;
-                            image3.push(ImagedownloadURL3)
-                            setimage3(image3);
-                            console.log(image3);
-                            ImagedownloadURL3=("");
-                            if(image3.length>0){
-                              files.push(image3[0]);
-                              setfiles(files);
-                              console.log(files);
+                          getDownloadURL(uploadTask3.snapshot.ref).then(
+                            (downloadURL) => {
+                              console.log("File available at", downloadURL);
+                              ImagedownloadURL3 = downloadURL;
+                              image3.push(ImagedownloadURL3);
+                              setimage3(image3);
+                              console.log(image3);
+                              ImagedownloadURL3 = "";
+                              if (image3.length > 0) {
+                                files.push(image3[0]);
+                                setfiles(files);
+                                console.log(files);
+                              }
                             }
-                          });
+                          );
                         });
-                      }                     
+                      }
                     }}
                   ></input>
-                  <img src={camera}></img>
+                  <img src={camera} className="upload-img"></img>
                 </label>
                 <label className="uploadCards">
                   <input
@@ -397,26 +409,28 @@ const AddCards = () => {
                           img4
                         );
                         let ImagedownloadURL4;
-                        
+
                         uploadTask4.on("state_changed", (snapshot) => {
-                          getDownloadURL(uploadTask4.snapshot.ref).then((downloadURL) => {
-                            console.log("File available at", downloadURL);
-                            ImagedownloadURL4 = downloadURL;
-                            image4.push(ImagedownloadURL4)
-                            setimage4(image4);
-                            console.log(image4);
-                            ImagedownloadURL4=("");
-                            if(image4.length>0){
-                              files.push(image4[0]);
-                              setfiles(files);
-                              console.log(files);
+                          getDownloadURL(uploadTask4.snapshot.ref).then(
+                            (downloadURL) => {
+                              console.log("File available at", downloadURL);
+                              ImagedownloadURL4 = downloadURL;
+                              image4.push(ImagedownloadURL4);
+                              setimage4(image4);
+                              console.log(image4);
+                              ImagedownloadURL4 = "";
+                              if (image4.length > 0) {
+                                files.push(image4[0]);
+                                setfiles(files);
+                                console.log(files);
+                              }
                             }
-                          });
+                          );
                         });
-                      }                     
+                      }
                     }}
                   ></input>
-                  <img src={camera}></img>
+                  <img src={camera} className="upload-img"></img>
                 </label>
                 <label className="uploadCards">
                   <input
@@ -438,26 +452,28 @@ const AddCards = () => {
                           img5
                         );
                         let ImagedownloadURL5;
-                        
+
                         uploadTask5.on("state_changed", (snapshot) => {
-                          getDownloadURL(uploadTask5.snapshot.ref).then((downloadURL) => {
-                            console.log("File available at", downloadURL);
-                            ImagedownloadURL5 = downloadURL;
-                            image5.push(ImagedownloadURL5)
-                            setimage5(image5);
-                            console.log(image5);
-                            ImagedownloadURL5=("");
-                            if(image5.length>0){
-                              files.push(image5[0]);
-                              setfiles(files);
-                              console.log(files);
+                          getDownloadURL(uploadTask5.snapshot.ref).then(
+                            (downloadURL) => {
+                              console.log("File available at", downloadURL);
+                              ImagedownloadURL5 = downloadURL;
+                              image5.push(ImagedownloadURL5);
+                              setimage5(image5);
+                              console.log(image5);
+                              ImagedownloadURL5 = "";
+                              if (image5.length > 0) {
+                                files.push(image5[0]);
+                                setfiles(files);
+                                console.log(files);
+                              }
                             }
-                          });
+                          );
                         });
-                      }                     
+                      }
                     }}
                   ></input>
-                  <img src={camera}></img>
+                  <img src={camera} className="upload-img"></img>
                 </label>
                 <label className="uploadCards">
                   <input
@@ -479,26 +495,28 @@ const AddCards = () => {
                           img6
                         );
                         let ImagedownloadURL6;
-                        
+
                         uploadTask6.on("state_changed", (snapshot) => {
-                          getDownloadURL(uploadTask6.snapshot.ref).then((downloadURL) => {
-                            console.log("File available at", downloadURL);
-                            ImagedownloadURL6 = downloadURL;
-                            image6.push(ImagedownloadURL6)
-                            setimage6(image6);
-                            console.log(image6);
-                            ImagedownloadURL6=("");
-                            if(image6.length>0){
-                              files.push(image6[0]);
-                              setfiles(files);
-                              console.log(files);
+                          getDownloadURL(uploadTask6.snapshot.ref).then(
+                            (downloadURL) => {
+                              console.log("File available at", downloadURL);
+                              ImagedownloadURL6 = downloadURL;
+                              image6.push(ImagedownloadURL6);
+                              setimage6(image6);
+                              console.log(image6);
+                              ImagedownloadURL6 = "";
+                              if (image6.length > 0) {
+                                files.push(image6[0]);
+                                setfiles(files);
+                                console.log(files);
+                              }
                             }
-                          });
+                          );
                         });
-                      }                     
+                      }
                     }}
                   ></input>
-                  <img src={camera}></img>
+                  <img src={camera} className="upload-img"></img>
                 </label>
                 <label className="uploadCards">
                   <input
@@ -520,26 +538,28 @@ const AddCards = () => {
                           img7
                         );
                         let ImagedownloadURL7;
-                        
+
                         uploadTask7.on("state_changed", (snapshot) => {
-                          getDownloadURL(uploadTask7.snapshot.ref).then((downloadURL) => {
-                            console.log("File available at", downloadURL);
-                            ImagedownloadURL7 = downloadURL;
-                            image7.push(ImagedownloadURL7)
-                            setimage7(image7);
-                            console.log(image7);
-                            ImagedownloadURL7=("");
-                            if(image7.length>0){
-                              files.push(image7[0]);
-                              setfiles(files);
-                              console.log(files);
+                          getDownloadURL(uploadTask7.snapshot.ref).then(
+                            (downloadURL) => {
+                              console.log("File available at", downloadURL);
+                              ImagedownloadURL7 = downloadURL;
+                              image7.push(ImagedownloadURL7);
+                              setimage7(image7);
+                              console.log(image7);
+                              ImagedownloadURL7 = "";
+                              if (image7.length > 0) {
+                                files.push(image7[0]);
+                                setfiles(files);
+                                console.log(files);
+                              }
                             }
-                          });
+                          );
                         });
-                      }                     
+                      }
                     }}
                   ></input>
-                  <img src={camera}></img>
+                  <img src={camera} className="upload-img"></img>
                 </label>
                 <label className="uploadCards">
                   <input
@@ -561,26 +581,28 @@ const AddCards = () => {
                           img8
                         );
                         let ImagedownloadURL8;
-                        
+
                         uploadTask8.on("state_changed", (snapshot) => {
-                          getDownloadURL(uploadTask8.snapshot.ref).then((downloadURL) => {
-                            console.log("File available at", downloadURL);
-                            ImagedownloadURL8 = downloadURL;
-                            image8.push(ImagedownloadURL8)
-                            setimage8(image8);
-                            console.log(image8);
-                            ImagedownloadURL8=("");
-                            if(image8.length>0){
-                              files.push(image8[0]);
-                              setfiles(files);
-                              console.log(files);
+                          getDownloadURL(uploadTask8.snapshot.ref).then(
+                            (downloadURL) => {
+                              console.log("File available at", downloadURL);
+                              ImagedownloadURL8 = downloadURL;
+                              image8.push(ImagedownloadURL8);
+                              setimage8(image8);
+                              console.log(image8);
+                              ImagedownloadURL8 = "";
+                              if (image8.length > 0) {
+                                files.push(image8[0]);
+                                setfiles(files);
+                                console.log(files);
+                              }
                             }
-                          });
+                          );
                         });
-                      }                     
+                      }
                     }}
                   ></input>
-                  <img src={camera}></img>
+                  <img src={camera} className="upload-img"></img>
                 </label>
                 <label className="uploadCards">
                   <input
@@ -602,26 +624,28 @@ const AddCards = () => {
                           img9
                         );
                         let ImagedownloadURL9;
-                        
+
                         uploadTask9.on("state_changed", (snapshot) => {
-                          getDownloadURL(uploadTask9.snapshot.ref).then((downloadURL) => {
-                            console.log("File available at", downloadURL);
-                            ImagedownloadURL9 = downloadURL;
-                            image9.push(ImagedownloadURL9)
-                            setimage9(image9);
-                            console.log(image9);
-                            ImagedownloadURL9=("");
-                            if(image9.length>0){
-                              files.push(image9[0]);
-                              setfiles(files);
-                              console.log(files);
+                          getDownloadURL(uploadTask9.snapshot.ref).then(
+                            (downloadURL) => {
+                              console.log("File available at", downloadURL);
+                              ImagedownloadURL9 = downloadURL;
+                              image9.push(ImagedownloadURL9);
+                              setimage9(image9);
+                              console.log(image9);
+                              ImagedownloadURL9 = "";
+                              if (image9.length > 0) {
+                                files.push(image9[0]);
+                                setfiles(files);
+                                console.log(files);
+                              }
                             }
-                          });
+                          );
                         });
-                      }                     
+                      }
                     }}
                   ></input>
-                  <img src={camera}></img>
+                  <img src={camera} className="upload-img"></img>
                 </label>
                 <label className="uploadCards">
                   <input
@@ -643,26 +667,28 @@ const AddCards = () => {
                           img10
                         );
                         let ImagedownloadURL10;
-                        
+
                         uploadTask10.on("state_changed", (snapshot) => {
-                          getDownloadURL(uploadTask10.snapshot.ref).then((downloadURL) => {
-                            console.log("File available at", downloadURL);
-                            ImagedownloadURL10 = downloadURL;
-                            image10.push(ImagedownloadURL10)
-                            setimage10(image10);
-                            console.log(image10);
-                            ImagedownloadURL10=("");
-                            if(image10.length>0){
-                              files.push(image10[0]);
-                              setfiles(files);
-                              console.log(files);
+                          getDownloadURL(uploadTask10.snapshot.ref).then(
+                            (downloadURL) => {
+                              console.log("File available at", downloadURL);
+                              ImagedownloadURL10 = downloadURL;
+                              image10.push(ImagedownloadURL10);
+                              setimage10(image10);
+                              console.log(image10);
+                              ImagedownloadURL10 = "";
+                              if (image10.length > 0) {
+                                files.push(image10[0]);
+                                setfiles(files);
+                                console.log(files);
+                              }
                             }
-                          });
+                          );
                         });
-                      }                     
+                      }
                     }}
                   ></input>
-                  <img src={camera}></img>
+                  <img src={camera} className="upload-img"></img>
                 </label>
                 <label className="uploadCards">
                   <input
@@ -684,26 +710,28 @@ const AddCards = () => {
                           img11
                         );
                         let ImagedownloadURL11;
-                        
+
                         uploadTask11.on("state_changed", (snapshot) => {
-                          getDownloadURL(uploadTask11.snapshot.ref).then((downloadURL) => {
-                            console.log("File available at", downloadURL);
-                            ImagedownloadURL11 = downloadURL;
-                            image11.push(ImagedownloadURL11)
-                            setimage11(image11);
-                            console.log(image11);
-                            ImagedownloadURL11=("");
-                            if(image11.length>0){
-                              files.push(image11[0]);
-                              setfiles(files);
-                              console.log(files);
+                          getDownloadURL(uploadTask11.snapshot.ref).then(
+                            (downloadURL) => {
+                              console.log("File available at", downloadURL);
+                              ImagedownloadURL11 = downloadURL;
+                              image11.push(ImagedownloadURL11);
+                              setimage11(image11);
+                              console.log(image11);
+                              ImagedownloadURL11 = "";
+                              if (image11.length > 0) {
+                                files.push(image11[0]);
+                                setfiles(files);
+                                console.log(files);
+                              }
                             }
-                          });
+                          );
                         });
-                      }                     
+                      }
                     }}
                   ></input>
-                  <img src={camera}></img>
+                  <img src={camera} className="upload-img"></img>
                 </label>
                 <label className="uploadCards">
                   <input
@@ -725,26 +753,28 @@ const AddCards = () => {
                           img12
                         );
                         let ImagedownloadURL12;
-                        
+
                         uploadTask12.on("state_changed", (snapshot) => {
-                          getDownloadURL(uploadTask12.snapshot.ref).then((downloadURL) => {
-                            console.log("File available at", downloadURL);
-                            ImagedownloadURL12 = downloadURL;
-                            image12.push(ImagedownloadURL12)
-                            setimage12(image12);
-                            console.log(image12);
-                            ImagedownloadURL12=("");
-                            if(image12.length>0){
-                              files.push(image12[0]);
-                              setfiles(files);
-                              console.log(files);
+                          getDownloadURL(uploadTask12.snapshot.ref).then(
+                            (downloadURL) => {
+                              console.log("File available at", downloadURL);
+                              ImagedownloadURL12 = downloadURL;
+                              image12.push(ImagedownloadURL12);
+                              setimage12(image12);
+                              console.log(image12);
+                              ImagedownloadURL12 = "";
+                              if (image12.length > 0) {
+                                files.push(image12[0]);
+                                setfiles(files);
+                                console.log(files);
+                              }
                             }
-                          });
+                          );
                         });
-                      }                     
+                      }
                     }}
                   ></input>
-                  <img src={camera}></img>
+                  <img src={camera} className="upload-img"></img>
                 </label>
                 <label className="uploadCards">
                   <input
@@ -766,26 +796,28 @@ const AddCards = () => {
                           img13
                         );
                         let ImagedownloadURL13;
-                        
+
                         uploadTask13.on("state_changed", (snapshot) => {
-                          getDownloadURL(uploadTask13.snapshot.ref).then((downloadURL) => {
-                            console.log("File available at", downloadURL);
-                            ImagedownloadURL13 = downloadURL;
-                            image13.push(ImagedownloadURL13)
-                            setimage13(image13);
-                            console.log(image13);
-                            ImagedownloadURL13=("");
-                            if(image13.length>0){
-                              files.push(image13[0]);
-                              setfiles(files);
-                              console.log(files);
+                          getDownloadURL(uploadTask13.snapshot.ref).then(
+                            (downloadURL) => {
+                              console.log("File available at", downloadURL);
+                              ImagedownloadURL13 = downloadURL;
+                              image13.push(ImagedownloadURL13);
+                              setimage13(image13);
+                              console.log(image13);
+                              ImagedownloadURL13 = "";
+                              if (image13.length > 0) {
+                                files.push(image13[0]);
+                                setfiles(files);
+                                console.log(files);
+                              }
                             }
-                          });
+                          );
                         });
-                      }                     
+                      }
                     }}
                   ></input>
-                  <img src={camera}></img>
+                  <img src={camera} className="upload-img"></img>
                 </label>
                 <label className="uploadCards">
                   <input
@@ -807,26 +839,28 @@ const AddCards = () => {
                           img14
                         );
                         let ImagedownloadURL14;
-                        
+
                         uploadTask14.on("state_changed", (snapshot) => {
-                          getDownloadURL(uploadTask14.snapshot.ref).then((downloadURL) => {
-                            console.log("File available at", downloadURL);
-                            ImagedownloadURL14 = downloadURL;
-                            image14.push(ImagedownloadURL14)
-                            setimage14(image14);
-                            console.log(image14);
-                            ImagedownloadURL14=("");
-                            if(image14.length>0){
-                              files.push(image14[0]);
-                              setfiles(files);
-                              console.log(files);
+                          getDownloadURL(uploadTask14.snapshot.ref).then(
+                            (downloadURL) => {
+                              console.log("File available at", downloadURL);
+                              ImagedownloadURL14 = downloadURL;
+                              image14.push(ImagedownloadURL14);
+                              setimage14(image14);
+                              console.log(image14);
+                              ImagedownloadURL14 = "";
+                              if (image14.length > 0) {
+                                files.push(image14[0]);
+                                setfiles(files);
+                                console.log(files);
+                              }
                             }
-                          });
+                          );
                         });
-                      }                     
+                      }
                     }}
                   ></input>
-                  <img src={camera}></img>
+                  <img src={camera} className="upload-img"></img>
                 </label>
                 <label className="uploadCards">
                   <input
@@ -848,26 +882,28 @@ const AddCards = () => {
                           img15
                         );
                         let ImagedownloadURL15;
-                        
+
                         uploadTask15.on("state_changed", (snapshot) => {
-                          getDownloadURL(uploadTask15.snapshot.ref).then((downloadURL) => {
-                            console.log("File available at", downloadURL);
-                            ImagedownloadURL15 = downloadURL;
-                            image15.push(ImagedownloadURL15)
-                            setimage15(image15);
-                            console.log(image15);
-                            ImagedownloadURL15=("");
-                            if(image15.length>0){
-                              files.push(image15[0]);
-                              setfiles(files);
-                              console.log(files);
+                          getDownloadURL(uploadTask15.snapshot.ref).then(
+                            (downloadURL) => {
+                              console.log("File available at", downloadURL);
+                              ImagedownloadURL15 = downloadURL;
+                              image15.push(ImagedownloadURL15);
+                              setimage15(image15);
+                              console.log(image15);
+                              ImagedownloadURL15 = "";
+                              if (image15.length > 0) {
+                                files.push(image15[0]);
+                                setfiles(files);
+                                console.log(files);
+                              }
                             }
-                          });
+                          );
                         });
-                      }                     
+                      }
                     }}
                   ></input>
-                  <img src={camera}></img>
+                  <img src={camera} className="upload-img"></img>
                 </label>
                 <label className="uploadCards">
                   <input
@@ -889,26 +925,28 @@ const AddCards = () => {
                           img16
                         );
                         let ImagedownloadURL16;
-                        
+
                         uploadTask16.on("state_changed", (snapshot) => {
-                          getDownloadURL(uploadTask16.snapshot.ref).then((downloadURL) => {
-                            console.log("File available at", downloadURL);
-                            ImagedownloadURL16 = downloadURL;
-                            image16.push(ImagedownloadURL16)
-                            setimage16(image16);
-                            console.log(image16);
-                            ImagedownloadURL16=("");
-                            if(image16.length>0){
-                              files.push(image16[0]);
-                              setfiles(files);
-                              console.log(files);
+                          getDownloadURL(uploadTask16.snapshot.ref).then(
+                            (downloadURL) => {
+                              console.log("File available at", downloadURL);
+                              ImagedownloadURL16 = downloadURL;
+                              image16.push(ImagedownloadURL16);
+                              setimage16(image16);
+                              console.log(image16);
+                              ImagedownloadURL16 = "";
+                              if (image16.length > 0) {
+                                files.push(image16[0]);
+                                setfiles(files);
+                                console.log(files);
+                              }
                             }
-                          });
+                          );
                         });
-                      }                     
+                      }
                     }}
                   ></input>
-                  <img src={camera}></img>
+                  <img src={camera} className="upload-img"></img>
                 </label>
                 <label className="uploadCards">
                   <input
@@ -930,26 +968,28 @@ const AddCards = () => {
                           img17
                         );
                         let ImagedownloadURL17;
-                        
+
                         uploadTask17.on("state_changed", (snapshot) => {
-                          getDownloadURL(uploadTask17.snapshot.ref).then((downloadURL) => {
-                            console.log("File available at", downloadURL);
-                            ImagedownloadURL17 = downloadURL;
-                            image17.push(ImagedownloadURL17)
-                            setimage17(image17);
-                            console.log(image17);
-                            ImagedownloadURL17=("");
-                            if(image17.length>0){
-                              files.push(image17[0]);
-                              setfiles(files);
-                              console.log(files);
+                          getDownloadURL(uploadTask17.snapshot.ref).then(
+                            (downloadURL) => {
+                              console.log("File available at", downloadURL);
+                              ImagedownloadURL17 = downloadURL;
+                              image17.push(ImagedownloadURL17);
+                              setimage17(image17);
+                              console.log(image17);
+                              ImagedownloadURL17 = "";
+                              if (image17.length > 0) {
+                                files.push(image17[0]);
+                                setfiles(files);
+                                console.log(files);
+                              }
                             }
-                          });
+                          );
                         });
-                      }                     
+                      }
                     }}
                   ></input>
-                  <img src={camera}></img>
+                  <img src={camera} className="upload-img"></img>
                 </label>
                 <label className="uploadCards">
                   <input
@@ -971,26 +1011,28 @@ const AddCards = () => {
                           img18
                         );
                         let ImagedownloadURL18;
-                        
+
                         uploadTask18.on("state_changed", (snapshot) => {
-                          getDownloadURL(uploadTask18.snapshot.ref).then((downloadURL) => {
-                            console.log("File available at", downloadURL);
-                            ImagedownloadURL18 = downloadURL;
-                            image18.push(ImagedownloadURL18)
-                            setimage18(image18);
-                            console.log(image18);
-                            ImagedownloadURL18=("");
-                            if(image18.length>0){
-                              files.push(image18[0]);
-                              setfiles(files);
-                              console.log(files);
+                          getDownloadURL(uploadTask18.snapshot.ref).then(
+                            (downloadURL) => {
+                              console.log("File available at", downloadURL);
+                              ImagedownloadURL18 = downloadURL;
+                              image18.push(ImagedownloadURL18);
+                              setimage18(image18);
+                              console.log(image18);
+                              ImagedownloadURL18 = "";
+                              if (image18.length > 0) {
+                                files.push(image18[0]);
+                                setfiles(files);
+                                console.log(files);
+                              }
                             }
-                          });
+                          );
                         });
-                      }                     
+                      }
                     }}
                   ></input>
-                  <img src={camera}></img>
+                  <img src={camera} className="upload-img"></img>
                 </label>
                 <label className="uploadCards">
                   <input
@@ -1012,26 +1054,28 @@ const AddCards = () => {
                           img19
                         );
                         let ImagedownloadURL19;
-                        
+
                         uploadTask19.on("state_changed", (snapshot) => {
-                          getDownloadURL(uploadTask19.snapshot.ref).then((downloadURL) => {
-                            console.log("File available at", downloadURL);
-                            ImagedownloadURL19 = downloadURL;
-                            image19.push(ImagedownloadURL19)
-                            setimage19(image19);
-                            console.log(image19);
-                            ImagedownloadURL19=("");
-                            if(image19.length>0){
-                              files.push(image19[0]);
-                              setfiles(files);
-                              console.log(files);
+                          getDownloadURL(uploadTask19.snapshot.ref).then(
+                            (downloadURL) => {
+                              console.log("File available at", downloadURL);
+                              ImagedownloadURL19 = downloadURL;
+                              image19.push(ImagedownloadURL19);
+                              setimage19(image19);
+                              console.log(image19);
+                              ImagedownloadURL19 = "";
+                              if (image19.length > 0) {
+                                files.push(image19[0]);
+                                setfiles(files);
+                                console.log(files);
+                              }
                             }
-                          });
+                          );
                         });
-                      }                     
+                      }
                     }}
                   ></input>
-                  <img src={camera}></img>
+                  <img src={camera} className="upload-img"></img>
                 </label>
               </div>
               <h2 className="uploadh22">
@@ -1083,7 +1127,9 @@ const AddCards = () => {
           </div>
           <div className="postDiv">
             <span style={{ color: colors }}>{msg}</span>
-            <button onClick={addCard} className={btnClass}>Post now</button>
+            <button onClick={addCard} className={btnClass}>
+              Post now
+            </button>
           </div>
         </div>
       </div>

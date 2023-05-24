@@ -58,7 +58,7 @@ const CardDetail = () => {
       <Category />
       <div className="container">
         <div className="cardDtlMain ">
-        {/* {datas.map((cardd)=>{
+          {/* {datas.map((cardd)=>{
         let imgArr = cardd.moreimages;
         let imgArrDup = [...new Set(imgArr)];
         console.log(imgArrDup);
@@ -176,9 +176,20 @@ const CardDetail = () => {
         })
         } */}
           {datas.length > 0 ? (
-            datas.map((cardd , index) => {
+            datas.map((cardd, index) => {
               let imgArr = cardd.moreimages;
               let imgArrDup = [...new Set(imgArr)];
+              let dated = cardd.time;
+              let Cdate = new Date().getTime();
+              let finalDate = Cdate - dated;
+              let days = Math.floor(finalDate / (1000 * 3600 * 24));
+              let hours = Math.floor(finalDate / 1000 / 60 / 60);
+              let minutes = Math.floor(finalDate / 1000 / 60);
+              let seconds = Math.floor(finalDate / 1000);
+              let day = days < 2 ? "day" : "days";
+              let hour = hours < 2 ? "hour" : "hours";
+              let min = minutes < 2 ? "minute" : "minutes";
+              let sec = seconds < 2 ? "second" : "seconds";
               return (
                 <>
                   <div className="row" key={index + 1}>
@@ -196,7 +207,10 @@ const CardDetail = () => {
                               </div>
                               {imgArrDup.map((moreimages, index) => {
                                 return (
-                                  <div className="carousel-item" key={index + 1}>
+                                  <div
+                                    className="carousel-item"
+                                    key={index + 1}
+                                  >
                                     <img src={moreimages} alt="image" />
                                   </div>
                                 );
@@ -242,7 +256,17 @@ const CardDetail = () => {
                               <FontAwesomeIcon icon={faLocationDot} />
                               <h6>{cardd.location}</h6>
                             </div>
-                            <span>3 days ago</span>
+                            <span>
+                              {hours === 0
+                                ? seconds < 60
+                                  ? seconds < 30
+                                    ? "Just Now"
+                                    : `${seconds} ${sec} ago`
+                                  : `${minutes} ${min} ago`
+                                : hours > 24
+                                ? `${days} ${day} ago`
+                                : `${hours} ${hour} ago`}
+                            </span>
                           </div>
                         </div>
                         <div className="card-detail-left-ad-info">
@@ -281,7 +305,12 @@ const CardDetail = () => {
                             </div>
                           </div>
                           <div className="btn-wrapper">
-                            <Link to="#" onClick={()=>{setnumber(cardd.phone)}}>
+                            <Link
+                              to="#"
+                              onClick={() => {
+                                setnumber(cardd.phone);
+                              }}
+                            >
                               <FontAwesomeIcon icon={faPhone} />
                               {number}
                             </Link>

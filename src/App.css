@@ -525,48 +525,41 @@
 
 .detailsLabel {
   width: 100%;
-  height: 220px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   padding-left: 27px;
   color: #002f34;
   padding-top: 20px;
+  margin-bottom: 20px;
 }
 
 #detailsInput {
-  width: 960px;
-  height: 200px;
+  width: 96%;
   border-radius: 5px;
   outline: none;
   border: none;
   border: 1px solid #002f34;
   padding-left: 15px;
   font-size: 18px;
+  padding: 10px 10px 10px 18px;
   color: #002f34;
+  margin-top: 5px;
 }
 
 #detailsInput2 {
-  width: 960px;
-  height: 900px;
+  width: 96%;
   border-radius: 5px;
   outline: none;
   border: none;
   border: 1px solid #002f34;
   padding: 10px;
-  padding-left: 15px;
-  font-size: 17px;
+  padding: 10px 15px;
+  font-size: 18px;
   color: #002f34;
   resize: none;
+  margin-top: 5px;
   font-weight: 400;
-}
-
-#detailsInput2:focus {
-  border: 1px solid #23e5db;
-}
-
-#detailsInput:focus {
-  border: 1px solid #23e5db;
 }
 
 .detailsSpan-2 {
@@ -575,23 +568,43 @@
   color: #002f34;
 }
 
+#detailsInput2:focus {
+  border: 2px solid #23e5db;
+}
+
+#detailsInput:focus {
+  border: 2px solid #23e5db;
+}
+
+.labels:has(#detailsInput:focus) .detailsSpan{
+  color: #23e5db !important;
+}
+
+.detailsLabel:has(#detailsInput2:focus) .detailsSpan2{
+  color: #23e5db !important;
+}
+
 .condition {
   width: 100%;
-  height: 100px;
-  display: flex;
-  flex-direction: column;
-  padding-left: 27px;
-  padding-top: 10px;
+  padding: 0 0 0 27px;
   margin-bottom: 20px;
 }
 
-.checkLabel {
-  width: 20%;
-  display: flex;
-  align-items: center;
+.condition h3{
+  font-size: 16px;
+  font-weight: 400;
+  margin-bottom: 0;
+  padding: 10px 0 5px;
 }
 
-.checkLabel label {
+.checkLabel {
+  padding: 20px 0;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+/* .checkLabel label {
   width: 70px;
   height: 50px;
   margin-right: 20px;
@@ -600,6 +613,10 @@
   justify-content: center;
   align-items: center;
   padding: 20px;
+} */
+
+.checkLabel label{
+  cursor: pointer;
 }
 
 .checkLabel label input {
@@ -630,7 +647,6 @@
 
 .locationDIV {
   width: 100%;
-  height: 55%;
   border-top: 1px solid rgba(0, 47, 52, .36);
   border-bottom: 1px solid rgba(0, 47, 52, .36);
   padding-bottom: 30px;
@@ -638,18 +654,12 @@
 
 .verifyDetails {
   width: 100%;
-  height: 55%;
-  /* border-top: 1px solid rgba(0,47,52,.36); */
-  /* border-bottom: 1px solid rgba(0,47,52,.36); */
   padding-bottom: 30px;
 }
 
 .postDiv {
   width: 100%;
-  height: 20%;
   border-top: 1px solid rgba(0, 47, 52, .36);
-  display: flex;
-  flex-direction: column;
 }
 
 .postDiv span {
@@ -660,10 +670,8 @@
 
 .postDiv button {
   margin: 20px;
-  margin-left: 30px;
-  padding: 10px;
-  width: 145px;
-  height: 45px;
+  margin-left: 0;
+  padding: 15px 30px;
   color: #fff;
   background-color: #002f34;
   border: none;
@@ -674,6 +682,7 @@
 
 .verifyDetails h1 {
   font-size: 20px;
+  font-weight: 600;
   text-transform: uppercase;
   padding-top: 20px;
   padding-left: 36px;
@@ -686,29 +695,31 @@
 
 .avatarDiv2 {
   display: flex;
+  align-items: center;
   padding-left: 36px;
   padding-top: 20px;
 }
 
 .avatarDiv3 {
+  width: 100%;
   display: flex;
   flex-direction: column;
   padding-left: 20px;
-  justify-content: center;
+  gap: 5px;
 }
 
 .avatarDiv3 input {
-  width: 830px;
-  height: 50px;
-  font-size: 16px;
-  padding-left: 10px;
+  width: 95%;
+  font-size: 18px;
+  border: none;
+  outline: none;
+  border: 1px solid #002f34;
+  border-radius: 5px;
+  padding: 10px 10px 10px 18px;
 }
 
 .avatarDiv3 input:focus {
-  border: none;
-  outline: none;
-  border: 1px solid #23e5db;
-  border-radius: 2px;
+  border-color: #23e5db;
 }
 
 .avatarPhone {
@@ -716,6 +727,7 @@
   flex-direction: column;
   padding-left: 36px;
   padding-top: 20px;
+  gap: 5px;
 }
 
 .avatarPhone span {
@@ -723,21 +735,22 @@
 }
 
 .avatarPhone input {
-  width: 950px;
-  height: 50px;
-  font-size: 16px;
-  padding-left: 10px;
+  width: 95%;
+  font-size: 18px;
+  border: none;
+  outline: none;
+  border: 1px solid #002f34;
+  border-radius: 5px;
+  padding: 10px 10px 10px 18px;
 }
 
 .avatarPhone input:focus {
-  border: none;
-  outline: none;
-  border: 1px solid #23e5db;
-  border-radius: 2px;
+  border-color: #23e5db;
 }
 
 .setAprice h2 {
   font-size: 20px;
+  font-weight: 600;
   text-transform: uppercase;
   display: flex;
   align-items: center;
@@ -747,70 +760,59 @@
 
 .setAprice span {
   display: block;
-  font-size: 14px;
-  font-weight: 500;
-  padding-left: 36px;
-  padding-top: 20px;
+  font-size: 16px;
+  font-weight: 400;
+  padding: 10px 0 10px 36px;
 }
 
 .locationDIV h1 {
   padding-left: 36px;
+  font-size: 20px;
+  font-weight: 600;
 }
 
 .locationDIV span {
   display: block;
-  font-size: 14px;
-  font-weight: 500;
+  font-size: 16px;
+  font-weight: 400;
   padding-left: 36px;
   padding-top: 20px;
-  padding-bottom: 6px;
+  padding-bottom: 10px;
 }
 
 .locationInput {
-  /* width: 100px;
-  height: 45px;
   margin-left: 36px;
-  border-radius: 4px;
-  outline: none;
-  border: none;
-  border: 1px solid #002f34;
-  font-size: 16px;
-  padding: 10px; */
-  width: 950px;
-  height: 45px;
-  border: 1px solid #002f34;
-  margin-left: 36px;
-  border-radius: 2px;
 }
 
 .locationInp {
-  width: 100%;
-  height: 100%;
+  width: 95%;
   border: none;
   outline: none;
-  font-size: 16px;
-  padding-left: 10px;
+  font-size: 18px;
+  padding: 10px 10px 10px 18px;
+  border: 1px solid #002f34;
+  border-radius: 5px;
 }
 
 .setAprice input {
   width: 93%;
-  height: 40px;
   margin-left: 36px;
   border-radius: 4px;
   outline: none;
   border: none;
   border: 1px solid #002f34;
-  font-size: 16px;
-  padding: 10px;
+  font-size: 18px;
+  padding: 10px 10px 10px 18px;
 }
 
 .photo {
   width: 100%;
-  height: 430px;
+  padding-bottom: 20px;
 }
 
 .uploadh2 {
   font-size: 20px;
+  font-weight: 600;
   padding-left: 36px;
   padding-top: 20px;
   text-transform: uppercase;
@@ -998,7 +1000,7 @@
   padding-right: 370px;
 } */
 
-.mobileIcon {
+/* .mobileIcon {
   font-size: 24px;
   padding-right: 30px;
 }
@@ -1041,10 +1043,10 @@
 .carIcon {
   font-size: 24px;
   padding-right: 25px;
-}
+} */
 
 .angleRight {
-  font-size: 22px;
+  font-size: 16px;
 }
 
 .secondCat {
@@ -1089,7 +1091,7 @@
   cursor: pointer;
 }
 
-.uploadCards img {
+.uploadCards .upload-img {
   width: 40px;
   height: 40px;
 }
@@ -1958,6 +1960,10 @@
   border-bottom: 1px solid rgba(0, 47, 52, .36);
 }
 
+.sell-category-div.active{
+  background: #c8f8f6;
+}
+
 .sell-categories-middle{
   border-right: 0;
 }
@@ -1966,9 +1972,9 @@
   background: #c8f8f6;
 }
 
-.sell-category-div h4{
-  font-size: 16px;
-  font-weight: 400;
+.sell-category-div h4 {
+  font-size: 15px;
+  font-weight: 300;
   margin-bottom: 0;
   color: #000;
 }
@@ -1982,7 +1988,7 @@
 .sell-category-name svg{
   width: 30px;
   padding: 0;
-  font-size: 22px
+  font-size: 18px
 }
 
 .sell-categories-right{
