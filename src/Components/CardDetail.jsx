@@ -25,7 +25,6 @@ const CardDetail = () => {
   const [cardId, setcardId] = useState("");
   const [number, setnumber] = useState("Show Phone Number");
   const [numbercolor, setnumbercolor] = useState("black");
-  const [display, setdisplay] = useState("block");
   const [datas, setdatas] = useState([]);
   const [transform, settransform] = useState(0);
   const [coverState, setcoverState] = useState(null);
@@ -57,6 +56,13 @@ const CardDetail = () => {
       <Navbar />
       <Category />
       <div className="container">
+      {
+            datas.map((cardData)=>{
+              return(
+                <span className="card-detail-span">{`Home / ${cardData.other[0]} / ${cardData.other[1]} / ${cardData.other[0]} in ${cardData.location} / ${cardData.other[1]} in ${cardData.location}`}</span>
+              )
+            })
+          }
         <div className="cardDtlMain ">
           {/* {datas.map((cardd)=>{
         let imgArr = cardd.moreimages;
@@ -272,10 +278,13 @@ const CardDetail = () => {
                         <div className="card-detail-left-ad-info">
                           <h3>Details</h3>
                           <div className="card-detail-left-ad-info-flex-main">
-                            <div className="card-detail-left-ad-info-flex">
+                            {
+                              cardd.condition && 
+                              <div className="card-detail-left-ad-info-flex">
                               <h5>Condition</h5>
                               <h6>{cardd.condition}</h6>
                             </div>
+                            }
                             <div className="card-detail-left-ad-info-flex">
                               <h5>Price</h5>
                               <h6>{Number(cardd.price).toLocaleString()}</h6>

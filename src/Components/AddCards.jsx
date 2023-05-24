@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 import camera from "../images/photo-camera.png";
 import avatar from "../images/avatar.png";
 import store from "../Redux/store";
-import { collection, addDoc } from "firebase/firestore";
+import { collection, addDoc, doc } from "firebase/firestore";
 import { getFirestore } from "firebase/firestore";
 import {
   getStorage,
@@ -105,6 +105,7 @@ const AddCards = () => {
           uid: uid,
           cover: coverImageURL,
           moreimages: filesURL,
+          other:[categoryy,subcategoryy,thirdcategory],
           time: new Date().getTime(),
         });
         console.log("Document written with ID: ", docRef.id);
@@ -1126,10 +1127,19 @@ const AddCards = () => {
             </div>
           </div>
           <div className="postDiv">
-            <span style={{ color: colors }}>{msg}</span>
+            <span style={{ color: 'red' }}>{msg}</span>
+          {
+            Adtitle && description && price && coverImage && loacation && name && number?
             <button onClick={addCard} className={btnClass}>
               Post now
-            </button>
+            </button> : 
+            <button onClick={()=>{setmsg("Please Fill The Form")}} className={`${btnClass} disable-btn`}>
+            Post now
+          </button>
+          }
+            {/* <button onClick={addCard} className={btnClass}>
+              Post now
+            </button> */}
           </div>
         </div>
       </div>

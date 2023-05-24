@@ -1,10 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { collection, getDocs } from "firebase/firestore";
-import { Link, NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 import CardDetail from "./CardDetail";
-import { isReactNative } from "@firebase/util";
-import store from "../Redux/store";
-import cardImage from "../images/card.jpg";
 import { getFirestore } from "firebase/firestore";
 import app from "./Firebase";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -16,7 +13,6 @@ const Card = () => {
   const [isTrue, setisTrue] = useState(false);
   const [cardDataId, setcardDataId] = useState("");
   const db = getFirestore(app);
-  const [link, setlink] = useState("/");
 
   let cardId;
 
@@ -48,7 +44,7 @@ const Card = () => {
   } else {
     return (
       <div className="container">
-        <div className="row">
+        <div className="row pb-5">
           {cardData.length > 0 ? (
             cardData.map((cards, index) => {
               let cardIds = id[index];
@@ -84,12 +80,8 @@ const Card = () => {
                         </div>
                         <h4>Rs {Number(cards.price).toLocaleString()}</h4>
                         <p>
-                          {cards.location} ,Karachi • <span>{hours === 0 ? seconds < 60 ? seconds < 30 ? "Just Now" : `${seconds} ${sec} ago` : `${minutes} ${min} ago` : 
+                          {cards.location} , Pakistan • <span>{hours === 0 ? seconds < 60 ? seconds < 30 ? "Just Now" : `${seconds} ${sec} ago` : `${minutes} ${min} ago` : 
                           hours > 24 ? `${days} ${day} ago` : `${hours} ${hour} ago`}</span>
-                        
-                          {/* ${hours === 0 ? `${seconds < 60 ? `${seconds < 30 ? `<span class='pr-2'>Uploaded: Just Now </span>` : `<span class='pr-2'>Uploaded: 
-                          ${seconds} ${sec} ago </span>`}` : `<span class='pr-2'>Uploaded: ${minutes} ${min} ago </span>`}` : `
-                          ${hours > 24 ? `<span class='pr-2'>Uploaded: ${days} ${day} ago </span>` : `<span class='pr-2'>Uploaded: ${hours} ${hour} ago </span>`}`} */}
                         </p>
                       </div>
                     </Link>

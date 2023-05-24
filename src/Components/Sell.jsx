@@ -66,15 +66,20 @@ const Sell = () => {
     subcategories: ['Architecture & Interior Design','Camera Installation','Car Rental','Car Services','Catering & Restaurant','Construction Services','Consultancy Services','Domestic Help','Drivers & Taxi','Tuitions & Academies', 'Electronics & Computer Repair', 'Event Services', 'Farm & Fresh Food', 'Health & Beauty','Home & Office Repair','Insurance Services', 'Movers & Packers', 'Renting Services','Tailor Services','Travel & Visa','Video & Photography','Web Development','Other Services'] },
     { text: "Jobs", categoryText: "Jobs", icons: faBriefcase, 
     subcategories: ['Accounting & Finance','Advertising & PR','Architecture & Interior Design','Clerical & Administration','Content Writing','Customer Service','Delivery Riders','Domestic Staff','Education','Engineering','Graphic Design','Hotels & Tourism','Human Resources','Internships','IT & Networking','Manufacturing','Marketing','Medical','Online','Other Jobs','Part Time','Real Estate','Restaurants & Hospitality','Sales','Security'] },
-    { text: "Animals", categoryText: "Animals", icons: faDog },
+    { text: "Animals", categoryText: "Animals", icons: faDog,
+    subcategories:['Fish & Aquariums','Birds','Hens & Aseel','Cats','Dogs','Livestock','Horses','Pet Food & Accessories','Other Animals']  },
     {
       text: "Furniture & Home Decor",
       categoryText: "Furniture",
       icons: faCouch,
+      subcategories:['Sofa & Chairs','Beds & Wardrobes','Home Decoration','Tables & Dining','Garden & Outdoor','Painting & Mirrors','Rugs & Carpets','Curtains & Blinds','Office Furniture','Other Household Items']
     },
-    { text: "Fashion & Beauty", categoryText: "Fashion", icons: faShirt },
-    { text: "Books, Sports & Hobbies", categoryText: "Books", icons: faBook },
-    { text: "Kids", categoryText: "Kids", icons: faChild },
+    { text: "Fashion & Beauty", categoryText: "Fashion", icons: faShirt,
+    subcategories:['Accessories','Clothes','Footwear','Jewellery','Make Up','Skin & Hair','Watches','Wedding','Lawn & Pret','Couture','Other Fashion'] },
+    { text: "Books, Sports & Hobbies", categoryText: "Books", icons: faBook,
+    subcategories:['Books & Magazines','Musical Instruments','Sports Equipment','Gym & Fitness','Other Hobbies'] },
+    { text: "Kids", categoryText: "Kids", icons: faChild,
+    subcategories:['Kids Furniture','Toys','Prams & Walkers','Swings & Slides','Kids Bikes','Kids Accessories'] },
   ]);
 
   useEffect(() => {
