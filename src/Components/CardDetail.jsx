@@ -56,11 +56,11 @@ const CardDetail = () => {
       <Navbar />
       <Category />
       <div className="container">
-        {/* {datas.map((cardData) => {
+        {datas.map((cardData) => {
           return (
             <span className="card-detail-span">{`Home / ${cardData.other[0]} / ${cardData.other[1]} / ${cardData.other[0]} in ${cardData.location} / ${cardData.other[1]} in ${cardData.location}`}</span>
           );
-        })} */}
+        })}
         <div className="cardDtlMain ">
           {/* {datas.map((cardd)=>{
         let imgArr = cardd.moreimages;

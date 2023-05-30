@@ -17,13 +17,12 @@ import {
   faBuildingColumns,
   faBusinessTime,
   faChild,
-  faMobileScreenButton
+  faMobileScreenButton,
 } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import store from "../Redux/store";
 
 const Sell = () => {
-  const categoryArr = ["Mobiles"];
   const [category, setcategory] = useState("");
   const [subCategory, setsubCategory] = useState("");
   const [thirdcategory, setThirdcategory] = useState("");
@@ -38,48 +37,246 @@ const Sell = () => {
         "Mobile Phones",
         "Smart watches",
       ],
+      thirdcategories: [
+        "Charging Cables",
+        "Converters",
+        "Chargers",
+        "Screens",
+        "Screen Protectors",
+        "Mobile Stands",
+        "Ring Lights",
+        "Selfie Sticks",
+        "Power Banks",
+        "Headphones",
+        "Earphones",
+        "Covers & Cases",
+        "External Memory",
+        "Other Accessories",
+      ],
     },
-    { text: "Vehicles", categoryText: "Vehicles", icons: faCar, 
-      subcategories: ['Cars','Cars on installments','Cars Accessories','Spare Parts','Buses, Vans & Trucks','Rikshaw & Chingchi','Other Vehicles','Boats','Tractor & Trailers'] },
+    {
+      text: "Vehicles",
+      categoryText: "Vehicles",
+      icons: faCar,
+      subcategories: [
+        "Cars",
+        "Cars on installments",
+        "Cars Accessories",
+        "Spare Parts",
+        "Buses, Vans & Trucks",
+        "Rikshaw & Chingchi",
+        "Other Vehicles",
+        "Boats",
+        "Tractor & Trailers",
+      ],
+    },
     {
       text: "Property for Sale",
       categoryText: "Sale",
       icons: faBuildingColumns,
-      subcategories: ['Land & Plots', 'Houses', 'Apartments & Flats', 'Shops - Offices - Commercial Space','Portions & Floors']
+      subcategories: [
+        "Land & Plots",
+        "Houses",
+        "Apartments & Flats",
+        "Shops - Offices - Commercial Space",
+        "Portions & Floors",
+      ],
     },
-    { text: "Property for Rent", categoryText: "Rent", icons: faCar,subcategories: ['Houses', 'Apartments & Flats', 'Portions & Floors', 'Shops - Offices - Commercial Space', 'Rooms', 'Roommates & Paying Guests', 'Vacation Rentals - Guests Houses', 'Land & Plots ' ] },
+    {
+      text: "Property for Rent",
+      categoryText: "Rent",
+      icons: faCar,
+      subcategories: [
+        "Houses",
+        "Apartments & Flats",
+        "Portions & Floors",
+        "Shops - Offices - Commercial Space",
+        "Rooms",
+        "Roommates & Paying Guests",
+        "Vacation Rentals - Guests Houses",
+        "Land & Plots ",
+      ],
+    },
     {
       text: "Electronics & Home Appliances",
       categoryText: "Electronics",
       icons: faBoltLightning,
-      subcategories: ['Computers & Accessories','TV - Video - Audio','Cameras & Accessories','Games & Entertainment','Other Home Appliances','Generators, UPS & Power Solutions','Kitchen Appliances','AC & Coolers','Fridges & Freezers','Washing Machines & Dryers']
+      subcategories: [
+        "Computers & Accessories",
+        "TV - Video - Audio",
+        "Cameras & Accessories",
+        "Games & Entertainment",
+        "Other Home Appliances",
+        "Generators, UPS & Power Solutions",
+        "Kitchen Appliances",
+        "AC & Coolers",
+        "Fridges & Freezers",
+        "Washing Machines & Dryers",
+      ],
     },
-    { text: "Bikes", categoryText: "Bikes", icons: faMotorcycle,
-      subcategories: ['Motorcycles','Spare Parts','Bicycles','ATV & Quads','Scooters'] },
+    {
+      text: "Bikes",
+      categoryText: "Bikes",
+      icons: faMotorcycle,
+      subcategories: [
+        "Motorcycles",
+        "Spare Parts",
+        "Bicycles",
+        "ATV & Quads",
+        "Scooters",
+      ],
+    },
     {
       text: "Bussiness, Industrial & Agriculture",
       categoryText: "Bussiness",
       icons: faBusinessTime,
-      subcategories: ['Business for Sale','Food & Restaurants','Trade & Industrial','Construction & Heavy Machinery','Agriculture','Other Business & Industry','Medical & Pharma']
+      subcategories: [
+        "Business for Sale",
+        "Food & Restaurants",
+        "Trade & Industrial",
+        "Construction & Heavy Machinery",
+        "Agriculture",
+        "Other Business & Industry",
+        "Medical & Pharma",
+      ],
     },
-    { text: "Services", categoryText: "Services", icons: faConciergeBell,
-    subcategories: ['Architecture & Interior Design','Camera Installation','Car Rental','Car Services','Catering & Restaurant','Construction Services','Consultancy Services','Domestic Help','Drivers & Taxi','Tuitions & Academies', 'Electronics & Computer Repair', 'Event Services', 'Farm & Fresh Food', 'Health & Beauty','Home & Office Repair','Insurance Services', 'Movers & Packers', 'Renting Services','Tailor Services','Travel & Visa','Video & Photography','Web Development','Other Services'] },
-    { text: "Jobs", categoryText: "Jobs", icons: faBriefcase, 
-    subcategories: ['Accounting & Finance','Advertising & PR','Architecture & Interior Design','Clerical & Administration','Content Writing','Customer Service','Delivery Riders','Domestic Staff','Education','Engineering','Graphic Design','Hotels & Tourism','Human Resources','Internships','IT & Networking','Manufacturing','Marketing','Medical','Online','Other Jobs','Part Time','Real Estate','Restaurants & Hospitality','Sales','Security'] },
-    { text: "Animals", categoryText: "Animals", icons: faDog,
-    subcategories:['Fish & Aquariums','Birds','Hens & Aseel','Cats','Dogs','Livestock','Horses','Pet Food & Accessories','Other Animals']  },
+    {
+      text: "Services",
+      categoryText: "Services",
+      icons: faConciergeBell,
+      subcategories: [
+        "Architecture & Interior Design",
+        "Camera Installation",
+        "Car Rental",
+        "Car Services",
+        "Catering & Restaurant",
+        "Construction Services",
+        "Consultancy Services",
+        "Domestic Help",
+        "Drivers & Taxi",
+        "Tuitions & Academies",
+        "Electronics & Computer Repair",
+        "Event Services",
+        "Farm & Fresh Food",
+        "Health & Beauty",
+        "Home & Office Repair",
+        "Insurance Services",
+        "Movers & Packers",
+        "Renting Services",
+        "Tailor Services",
+        "Travel & Visa",
+        "Video & Photography",
+        "Web Development",
+        "Other Services",
+      ],
+    },
+    {
+      text: "Jobs",
+      categoryText: "Jobs",
+      icons: faBriefcase,
+      subcategories: [
+        "Accounting & Finance",
+        "Advertising & PR",
+        "Architecture & Interior Design",
+        "Clerical & Administration",
+        "Content Writing",
+        "Customer Service",
+        "Delivery Riders",
+        "Domestic Staff",
+        "Education",
+        "Engineering",
+        "Graphic Design",
+        "Hotels & Tourism",
+        "Human Resources",
+        "Internships",
+        "IT & Networking",
+        "Manufacturing",
+        "Marketing",
+        "Medical",
+        "Online",
+        "Other Jobs",
+        "Part Time",
+        "Real Estate",
+        "Restaurants & Hospitality",
+        "Sales",
+        "Security",
+      ],
+    },
+    {
+      text: "Animals",
+      categoryText: "Animals",
+      icons: faDog,
+      subcategories: [
+        "Fish & Aquariums",
+        "Birds",
+        "Hens & Aseel",
+        "Cats",
+        "Dogs",
+        "Livestock",
+        "Horses",
+        "Pet Food & Accessories",
+        "Other Animals",
+      ],
+    },
     {
       text: "Furniture & Home Decor",
       categoryText: "Furniture",
       icons: faCouch,
-      subcategories:['Sofa & Chairs','Beds & Wardrobes','Home Decoration','Tables & Dining','Garden & Outdoor','Painting & Mirrors','Rugs & Carpets','Curtains & Blinds','Office Furniture','Other Household Items']
+      subcategories: [
+        "Sofa & Chairs",
+        "Beds & Wardrobes",
+        "Home Decoration",
+        "Tables & Dining",
+        "Garden & Outdoor",
+        "Painting & Mirrors",
+        "Rugs & Carpets",
+        "Curtains & Blinds",
+        "Office Furniture",
+        "Other Household Items",
+      ],
     },
-    { text: "Fashion & Beauty", categoryText: "Fashion", icons: faShirt,
-    subcategories:['Accessories','Clothes','Footwear','Jewellery','Make Up','Skin & Hair','Watches','Wedding','Lawn & Pret','Couture','Other Fashion'] },
-    { text: "Books, Sports & Hobbies", categoryText: "Books", icons: faBook,
-    subcategories:['Books & Magazines','Musical Instruments','Sports Equipment','Gym & Fitness','Other Hobbies'] },
-    { text: "Kids", categoryText: "Kids", icons: faChild,
-    subcategories:['Kids Furniture','Toys','Prams & Walkers','Swings & Slides','Kids Bikes','Kids Accessories'] },
+    {
+      text: "Fashion & Beauty",
+      categoryText: "Fashion",
+      icons: faShirt,
+      subcategories: [
+        "Clothes",
+        "Footwear",
+        "Jewellery",
+        "Make Up",
+        "Skin & Hair",
+        "Watches",
+        "Wedding",
+        "Lawn & Pret",
+        "Couture",
+        "Other Fashion",
+      ],
+    },
+    {
+      text: "Books, Sports & Hobbies",
+      categoryText: "Books",
+      icons: faBook,
+      subcategories: [
+        "Books & Magazines",
+        "Musical Instruments",
+        "Sports Equipment",
+        "Gym & Fitness",
+        "Other Hobbies",
+      ],
+    },
+    {
+      text: "Kids",
+      categoryText: "Kids",
+      icons: faChild,
+      subcategories: [
+        "Kids Furniture",
+        "Toys",
+        "Prams & Walkers",
+        "Swings & Slides",
+        "Kids Bikes",
+        "Kids Accessories",
+      ],
+    },
   ]);
 
   useEffect(() => {
@@ -138,7 +335,7 @@ const Sell = () => {
                         className="sell-category-div"
                         onClick={() => {
                           setcategory(data.categoryText);
-                          setThirdcategory("");
+                          // setThirdcategory("");
                         }}
                       >
                         <div className="sell-category-name">
@@ -165,12 +362,20 @@ const Sell = () => {
                             {data.subcategories.map((subData) => {
                               return (
                                 <>
-                                  {subData === "Accessories" || subData === "Domestic Help" || subData === "Drivers & Taxi" || subData === "Health & Beauty" || subData === "Home & Office Repair" ? (
+                                  {subData === "Accessories" ||
+                                  subData === "Domestic Help" ||
+                                  subData === "Drivers & Taxi" ||
+                                  subData === "Health & Beauty" ||
+                                  subData === "Home & Office Repair" ? (
                                     <div
                                       className="sell-category-div"
                                       onClick={() => {
                                         setsubCategory(subData);
-                                        setThirdcategory(subData);
+                                        // setThirdcategory("");
+                                      }}
+                                      onMouseOver={() => {
+                                        setsubCategory(subData);
+                                        // setThirdcategory("");
                                       }}
                                     >
                                       <div className="sell-category-name">
@@ -190,11 +395,11 @@ const Sell = () => {
                                         className="sell-category-div"
                                         onClick={() => {
                                           setsubCategory(subData);
-                                          setThirdcategory("")
+                                          setThirdcategory("");
                                         }}
                                         onMouseOver={() => {
                                           setsubCategory(subData);
-                                          setThirdcategory("")
+                                          setThirdcategory("");
                                         }}
                                       >
                                         <h4>{subData}</h4>
@@ -209,27 +414,37 @@ const Sell = () => {
                       }
                     })}
                   </div>
-
                 </div>
               </div>
               <div className="col-md-4 p-0">
                 <div className="sell-categories sell-categories-right">
-                  {categoryArr.map((thirdcat) => {
-                    if (thirdcategory === "Accessories") {
+                  {categoryData.map((data) => {
+                    console.log(subCategory);
+                    if (subCategory === "Accessories") {
                       return (
-                        <Link
-                          to="/sell/attributes"
-                          style={{ textDecoration: "none" }}
-                        >
-                          <div
-                            className="sell-category-div"
-                            onClick={() => {
-                              setsubCategory("Kids Accessories");
-                            }}
-                          >
-                            <h4>Kids Accessories</h4>
-                          </div>
-                        </Link>
+                        <>
+                          {data.thirdcategories && data.thirdcategories.map((thirdCats) => {
+                            return(
+                              <Link
+                              to="/sell/attributes"
+                              style={{ textDecoration: "none" }}
+                            >
+                              <div
+                                className="sell-category-div"
+                                onClick={() => {
+                                  setThirdcategory("thirdCats");
+                                }}
+                                onMouseOver={() => {
+                                  setThirdcategory("thirdCats");
+                                  console.log(thirdcategory);
+                                }}
+                              >
+                                <h4>{thirdCats}</h4>
+                              </div>
+                            </Link>
+                            )
+                          })}
+                        </>
                       );
                     }
                   })}

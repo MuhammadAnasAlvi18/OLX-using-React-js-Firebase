@@ -63,6 +63,9 @@ const AddCards = () => {
     setcategoryy(stores[stores.length - 1].categories);
     setsubcategoryy(stores[stores.length - 1].subcategories);
     setthirdcategory(stores[stores.length - 1].thirdcategory);
+
+    console.log(thirdcategory);
+
   }, []);
 
   const addCard = async (e) => {
