@@ -311,7 +311,7 @@ const AddCards = () => {
             {Adtitle &&
             description &&
             price &&
-            coverImageURL &&
+            images &&
             loacation &&
             name &&
             number ? (

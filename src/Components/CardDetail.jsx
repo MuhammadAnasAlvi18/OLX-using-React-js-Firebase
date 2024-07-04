@@ -45,7 +45,7 @@ const CardDetail = () => {
       if (docSnap.exists()) {
         const cardData = docSnap.data();
         setDatas([cardData]);
-        setCoverState(cardData.cover);
+        // setCoverState(cardData.cover);
       }
     };
 
