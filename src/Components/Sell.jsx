@@ -23,9 +23,9 @@ import { Link } from "react-router-dom";
 import store from "../Redux/store";
 
 const Sell = () => {
-  const [category, setcategory] = useState("");
-  const [subCategory, setsubCategory] = useState("");
-  const [thirdcategory, setThirdcategory] = useState("");
+  const [category, setCategory] = useState("");
+  const [subCategory, setSubCategory] = useState("");
+  const [thirdCategory, setThirdCategory] = useState("");
   const [categoryData, setCategoryData] = useState([
     {
       text: "Mobiles",
@@ -283,27 +283,12 @@ const Sell = () => {
     store.dispatch({
       type: "CATEGORY_ADDED",
       payload: {
-        category: category,
+        category,
         subcategory: subCategory,
-        thirdcategory: thirdcategory,
+        thirdcategory: thirdCategory,
       },
     });
-  }, [category, subCategory]);
-
-  // const setcategory = (categories) => {
-  //   setcategory(categories);
-  //   // if (category === "Mobiles") {
-  //   //   console.log("Its Working");
-  //   //   console.log(store.getState());
-  //   // }
-  //   console.log(category);
-  //   console.log(subCategory);
-  // };
-  // function setsubCategory(subCategories) {
-  //   setsubCategory(subCategories);
-  //   console.log(subCategories);
-  //   console.log(subCategory);
-  // }
+  }, [category, subCategory, thirdCategory]);
 
   return (
     <div className="sell_container">
@@ -315,7 +300,7 @@ const Sell = () => {
           ></FontAwesomeIcon>
         </Link>
         <Link to="/">
-          <img src={logo}></img>
+          <img src={logo} alt="logo" />
         </Link>
       </div>
       <div className="sellh2">
@@ -328,126 +313,97 @@ const Sell = () => {
             <div className="row m-0">
               <div className="col-md-4 p-0">
                 <div className="sell-categories sell-categories-left">
-                  {categoryData.map((data) => {
-                    console.log(data);
-                    return (
-                      <div
-                        className="sell-category-div"
-                        onClick={() => {
-                          setcategory(data.categoryText);
-                          // setThirdcategory("");
-                        }}
-                      >
-                        <div className="sell-category-name">
-                          <FontAwesomeIcon icon={data.icons}></FontAwesomeIcon>
-                          <h4>{data.text}</h4>
-                        </div>
-                        <FontAwesomeIcon
-                          className="angleRight"
-                          icon={faAngleRight}
-                        ></FontAwesomeIcon>
+                  {categoryData.map((data, index) => (
+                    <div
+                      key={index}
+                      className="sell-category-div"
+                      onClick={() => setCategory(data.categoryText)}
+                    >
+                      <div className="sell-category-name">
+                        <FontAwesomeIcon icon={data.icons}></FontAwesomeIcon>
+                        <h4>{data.text}</h4>
                       </div>
-                    );
-                  })}
+                      <FontAwesomeIcon
+                        className="angleRight"
+                        icon={faAngleRight}
+                      ></FontAwesomeIcon>
+                    </div>
+                  ))}
                 </div>
               </div>
               <div className="col-md-4 p-0">
                 <div className="sell-categories sell-categories-middle">
-                  <div>
-                    {categoryData.map((data) => {
-                      console.log(category === data.categoryText);
-                      if (category === data.categoryText) {
-                        return (
-                          <>
-                            {data.subcategories.map((subData) => {
-                              return (
-                                <>
-                                  {subData === "Accessories" ||
-                                  subData === "Domestic Help" ||
-                                  subData === "Drivers & Taxi" ||
-                                  subData === "Health & Beauty" ||
-                                  subData === "Home & Office Repair" ? (
-                                    <div
-                                      className="sell-category-div"
-                                      onClick={() => {
-                                        setsubCategory(subData);
-                                        // setThirdcategory("");
-                                      }}
-                                      onMouseOver={() => {
-                                        setsubCategory(subData);
-                                        // setThirdcategory("");
-                                      }}
-                                    >
-                                      <div className="sell-category-name">
-                                        <h4>{subData}</h4>
-                                      </div>
-                                      <FontAwesomeIcon
-                                        className="angleRight"
-                                        icon={faAngleRight}
-                                      ></FontAwesomeIcon>
-                                    </div>
-                                  ) : (
-                                    <Link
-                                      to="/sell/attributes"
-                                      style={{ textDecoration: "none" }}
-                                    >
-                                      <div
-                                        className="sell-category-div"
-                                        onClick={() => {
-                                          setsubCategory(subData);
-                                          setThirdcategory("");
-                                        }}
-                                        onMouseOver={() => {
-                                          setsubCategory(subData);
-                                          setThirdcategory("");
-                                        }}
-                                      >
-                                        <h4>{subData}</h4>
-                                      </div>
-                                    </Link>
-                                  )}
-                                </>
-                              );
-                            })}
-                          </>
-                        );
-                      }
-                    })}
-                  </div>
+                  {categoryData.map((data, index) => (
+                    category === data.categoryText && (
+                      <React.Fragment key={index}>
+                        {data.subcategories.map((subData, subIndex) => (
+                          <React.Fragment key={subIndex}>
+                            {["Accessories", "Domestic Help", "Drivers & Taxi", "Health & Beauty", "Home & Office Repair"].includes(subData) ? (
+                              <div
+                                key={subIndex}
+                                className="sell-category-div"
+                                onClick={() => setSubCategory(subData)}
+                                onMouseOver={() => setSubCategory(subData)}
+                              >
+                                <div className="sell-category-name">
+                                  <h4>{subData}</h4>
+                                </div>
+                                <FontAwesomeIcon
+                                  className="angleRight"
+                                  icon={faAngleRight}
+                                ></FontAwesomeIcon>
+                              </div>
+                            ) : (
+                              <Link
+                                to="/sell/attributes"
+                                key={subIndex}
+                                style={{ textDecoration: "none" }}
+                                onClick={() => {
+                                  setSubCategory(subData);
+                                  setThirdCategory("");
+                                }}
+                              >
+                                <div
+                                  className="sell-category-div"
+                                  onMouseOver={() => {
+                                    setSubCategory(subData);
+                                    setThirdCategory("");
+                                  }}
+                                >
+                                  <h4>{subData}</h4>
+                                </div>
+                              </Link>
+                            )}
+                          </React.Fragment>
+                        ))}
+                      </React.Fragment>
+                    )
+                  ))}
                 </div>
               </div>
               <div className="col-md-4 p-0">
                 <div className="sell-categories sell-categories-right">
-                  {categoryData.map((data) => {
-                    console.log(subCategory);
-                    if (subCategory === "Accessories") {
-                      return (
-                        <>
-                          {data.thirdcategories && data.thirdcategories.map((thirdCats) => {
-                            return(
-                              <Link
-                              to="/sell/attributes"
-                              style={{ textDecoration: "none" }}
+                  {categoryData.map((data, index) => (
+                    subCategory === "Accessories" && (
+                      <React.Fragment key={index}>
+                        {data.thirdcategories && data.thirdcategories.map((thirdCats, thirdIndex) => (
+                          <Link
+                            to="/sell/attributes"
+                            key={thirdIndex}
+                            style={{ textDecoration: "none" }}
+                            onClick={() => setThirdCategory(thirdCats)}
+                          >
+                            <div
+                              className="sell-category-div"
+                              onMouseOver={() => setThirdCategory(thirdCats)}
                             >
-                              <div
-                                className="sell-category-div"
-                                onClick={() => {
-                                  setThirdcategory("thirdCats");
-                                }}
-                                onMouseOver={() => {
-                                  setThirdcategory("thirdCats");
-                                  console.log(thirdcategory);
-                                }}
-                              >
-                                <h4>{thirdCats}</h4>
-                              </div>
-                            </Link>
-                            )
-                          })}
-                        </>
-                      );
-                    }
-                  })}
+                              <h4>{thirdCats}</h4>
+                            </div>
+                          </Link>
+                        ))}
+                      </React.Fragment>
+                    )
+                  ))}
                 </div>
               </div>
             </div>

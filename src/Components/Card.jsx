@@ -8,37 +8,37 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-regular-svg-icons";
 
 const Card = () => {
-  const [cardData, setcardData] = useState([]);
-  const [id, setid] = useState([]);
-  const [isTrue, setisTrue] = useState(false);
-  const [cardDataId, setcardDataId] = useState("");
+  const [cardData, setCardData] = useState([]);
+  const [id, setId] = useState([]);
+  const [isTrue, setIsTrue] = useState(false);
+  const [cardDataId, setCardDataId] = useState("");
   const db = getFirestore(app);
 
-  let cardId;
+  useEffect(() => {
+    const fetchData = async () => {
+      const querySnapshot = await getDocs(collection(db, "cards"));
+      const cards = [];
+      const ids = [];
+      querySnapshot.forEach((doc) => {
+        cards.push(doc.data());
+        ids.push(doc.id);
+      });
+      setCardData(cards);
+      setId(ids);
+    };
 
-  useEffect(async () => {
-    const querySnapshot = await getDocs(collection(db, "cards"));
-    querySnapshot.forEach((doc) => {
-      console.log(`${doc.id} => ${doc.data()}`);
-      console.log(doc.data());
-      setcardData([]);
-      cardData.push(doc.data());
-      id.push(doc.id);
-      setid(id);
-      setcardData(cardData);
-      console.log(cardData);
-      // setisTrue(true)
-    });
+    fetchData();
+  }, [db]);
 
-    console.log(id);
-
-    console.log(cardData);
-  }, []);
+  const handleCardClick = (cardId) => {
+    setCardDataId(cardId);
+    setIsTrue(true);
+  };
 
   if (isTrue) {
     return (
       <>
-        <CardDetail id={cardId}></CardDetail>
+        <CardDetail id={cardDataId}></CardDetail>
       </>
     );
   } else {
@@ -55,6 +55,8 @@ const Card = () => {
               let hours = Math.floor(finalDate / 1000 / 60 / 60);
               let minutes = Math.floor(finalDate / 1000 / 60);
               let seconds = Math.floor(finalDate / 1000);
+              let months = Math.floor(days / 30.44);
+              let month = months < 2 ? "month" : "months";
               let day = days < 2 ? "day" : "days";
               let hour = hours < 2 ? "hour" : "hours";
               let min = minutes < 2 ? "minute" : "minutes";
@@ -64,15 +66,11 @@ const Card = () => {
                   key={index + 100}
                   id={id[index]}
                   className="col-lg-3 col-md-6 col-sm-6 mb-3"
-                  onClick={(e) => {
-                    console.log(e.target.id);
-                    cardId = e.target.id;
-                    setcardDataId(cardId);
-                  }}
+                  onClick={() => handleCardClick(id[index])}
                 >
                   <div className="ad_card">
                     <Link to={`/item/${cardIds}`} param={cardIds}>
-                      <img src={cards.cover[0]} alt="cardImage" />
+                      <img src={cards.images} alt="cardImage" />
                       <div className="ad_card_text">
                         <div className="ad_card_top">
                           <h3>{cards.title}</h3>
@@ -80,8 +78,20 @@ const Card = () => {
                         </div>
                         <h4>Rs {Number(cards.price).toLocaleString()}</h4>
                         <p>
-                          {cards.location} , Pakistan • <span>{hours === 0 ? seconds < 60 ? seconds < 30 ? "Just Now" : `${seconds} ${sec} ago` : `${minutes} ${min} ago` : 
-                          hours > 24 ? `${days} ${day} ago` : `${hours} ${hour} ago`}</span>
+                          {cards.location} , Pakistan •{" "}
+                          <span>
+                            {hours === 0
+                              ? seconds < 60
+                                ? seconds < 30
+                                  ? "Just Now"
+                                  : `${seconds} ${sec} ago`
+                                : `${minutes} ${min} ago`
+                              : hours > 24
+                              ? days > 30
+                                ? `${months} ${month} ago`
+                                : `${days} ${day} ago`
+                              : `${hours} ${hour} ago`}
+                          </span>
                         </p>
                       </div>
                     </Link>

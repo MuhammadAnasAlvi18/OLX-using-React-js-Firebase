@@ -545,6 +545,10 @@
   margin-top: 5px;
 }
 
+.login-modal label:has(#detailsInput){
+  margin-bottom: 20px;
+}
+
 #detailsInput2 {
   width: 96%;
   border-radius: 5px;
@@ -1749,12 +1753,12 @@
   /* border: 1px solid #ccd5d6; */
   border-radius: 5px;
   background: #222;
-  padding-bottom: 30px;
+  padding-bottom: 0;
 }
 
 .ad_card img {
   width: 138px;
-  height: 50%;
+  height: 160px;
   object-fit: cover;
   background: #222;
   display: block;
@@ -1791,7 +1795,7 @@
 
 .ad_card_text {
   width: 100%;
-  /* height: 50%; */
+  height: calc(100% - 160px);
   padding-left: 10px;
   padding-bottom: 10px;
   position: relative;
@@ -2326,4 +2330,59 @@
   display: block;
   font-size: 15px;
   color: #707070;
+}
+
+.login-modal-body label {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 5px;
+  margin-bottom: 15px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.login-modal-body h3 {margin: 10px 0 25px;font-size: 24px;font-weight: 500;}
+
+.login-modal-body label input {
+  width: 100%;
+  padding: 8px 15px;
+  border: none;
+  outline: none;
+  border-radius: 5px;
+  border: 2px solid #707070;
+  font-size: 15px;
+}
+
+.login-modal-body label .detailsSpan-2 {
+  padding-top: 0;
+  font-weight: 500;
+}
+
+.login-modal-body h6 {
+  font-size: 14px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  margin-top: 20px;
+}
+
+.login-modal-body h6 a {
+  font-size: 13px;
+  color: #448fd7;
+}
+
+.login-modal .modal-footer button {
+  background: #448fd7;
+  outline: none;
+  border: none;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 8px 20px;
+  text-transform: uppercase;
+}
+
+.login-modal .modal-footer {
+  border-top: 0;
 }
