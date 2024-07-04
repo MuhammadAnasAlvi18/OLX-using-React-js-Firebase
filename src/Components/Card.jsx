@@ -45,7 +45,7 @@ const Card = () => {
     return (
       <div className="container">
         <div className="row pb-5">
-          {cardData.length > 0 ? (
+          {cardData?.length > 0 ? (
             cardData.map((cards, index) => {
               let cardIds = id[index];
               let dated = cards.time;
