@@ -31,7 +31,7 @@ const AddCards = () => {
   const [thirdcategory, setthirdcategory] = useState("");
   const [msg, setmsg] = useState("");
   const [colors, setcolors] = useState("");
-  const [coverImage, setcoverImage] = useState(null);
+  const [coverImage, setcoverImage] = useState([]);
   const [coverImageURL, setcoverImageURL] = useState([]);
   const [btnClass, setbtnClass] = useState("");
   const [images, setImages] = useState([]);
@@ -48,12 +48,14 @@ const AddCards = () => {
     setcategoryy(stores[stores.length - 1].categories);
     setsubcategoryy(stores[stores.length - 1].subcategories);
     setthirdcategory(stores[stores.length - 1].thirdcategory);
-
-    console.log(thirdcategory);
   }, []);
 
   const handleImageUploader = (e, index) => {
     let file = e.target.files[0];
+    const url = window.URL.createObjectURL(file);
+    coverImage.push(url);
+    setcoverImage(coverImage);
+    url && console.log(url , coverImage);
     let updatedImages = [...images];
     updatedImages[index] = file;
     setImages(updatedImages);
@@ -72,7 +74,6 @@ const AddCards = () => {
       try {
         const storageRef = ref(storage, `moreimages/${img.name}`);
         await uploadBytes(storageRef, img);
-        console.log(`${img.name} uploaded successfully!`);
         const url = await getDownloadURL(storageRef);
         return url;
       } catch (error) {
@@ -95,8 +96,6 @@ const AddCards = () => {
             phone: number,
             uid: uid,
             images: urls,
-            // cover: coverImageURL,
-            // moreimages: filesURL,
             other: [categoryy, subcategoryy, thirdcategory],
             time: new Date().getTime(),
           });
@@ -254,7 +253,8 @@ const AddCards = () => {
                     id="fileUpload1"
                     onChange={(e)=>{handleImageUploader(e,i)}}
                   />
-                  <img src={camera} className="upload-img" alt="upload" />
+                  {coverImage[i] ? <img src={coverImage && coverImage[i]} className="upload-cover" alt="" /> : <img src={camera} className="upload-img" alt="upload" />}
+                  
                 </label>
                 ))}
                 

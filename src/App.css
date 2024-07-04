@@ -2381,8 +2381,37 @@
   font-weight: 500;
   padding: 8px 20px;
   text-transform: uppercase;
+  width: 92px;
+  height:40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .login-modal .modal-footer {
   border-top: 0;
+}
+
+img.upload-cover {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+}
+
+.spinner{
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  border: 2px solid #FFF;
+  border-left-color: transparent;
+  animation: rotate .8s linear infinite;
+}
+
+@keyframes rotate{
+  0%{
+    transform: rotate(0deg);
+  }
+  100%{
+    transform: rotate(360deg);
+  }
 }

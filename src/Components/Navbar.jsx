@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import logo from "../images/olx-logo-vector.png";
 import logoBlack from "../images/olx-logo-vector-black.png";
 import sellBTN from "../images/BUTTON.png";
@@ -14,8 +14,9 @@ import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { Button, Modal } from "react-bootstrap";
 import app from "./Firebase";
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
-import { doc, getFirestore, setDoc } from "firebase/firestore";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "firebase/auth";
+import { doc, getDoc, getFirestore, setDoc } from "firebase/firestore";
+import { onAuthStateChanged } from "firebase/auth/cordova";
 
 const auth = getAuth(app);
 const db = getFirestore(app);
@@ -37,7 +38,15 @@ const Navbar = () => {
     phoneNumber: "",
     password: "",
   });
+  const [loginFormData, setLoginFormData] = useState({
+    email: "",
+    password: "",
+  })
+  const [loginError, setLoginError] = useState({});
   const [errors, setErrors] = useState({});
+  const [authStatus, setAuthStatus] = useState("");
+  const [loader, setLoader] = useState(false);
+  const [userData, setUserData] = useState(null);
 
   const validate = () => {
     let errors = {};
@@ -54,8 +63,8 @@ const Navbar = () => {
   
     if (!formData.phoneNumber) {
       errors.phoneNumber = "Phone number is required";
-    } else if (!/^\d{10}$/.test(formData.phoneNumber)) {
-      errors.phoneNumber = "Phone number is invalid, it should be 10 digits";
+    } else if (!/^\d{11}$/.test(formData.phoneNumber)) {
+      errors.phoneNumber = "Phone number is invalid, it should be 11 digits";
     }
   
     if (!formData.password) {
@@ -68,6 +77,26 @@ const Navbar = () => {
   
     return Object.keys(errors).length === 0;
   };
+
+  const validateLogin = () => {
+    let errors = {};
+
+    if (!loginFormData.email) {
+      errors.email = "Email is required";
+    } else if (!/\S+@\S+\.\S+/.test(loginFormData.email)) {
+      errors.email = "Email address is invalid";     
+  }
+
+    if (!loginFormData.password) {
+      errors.password = "Password is required";
+    } else if (loginFormData.password.length < 6) {
+      errors.password = "Password needs to be 6 characters or more";
+    }
+    
+      setLoginError(errors);
+
+      return Object.keys(errors).length === 0;
+  }
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -82,7 +111,20 @@ const Navbar = () => {
     validate();
   };
 
+  const handleChangeLogin = (e) => {
+    setLoginFormData({...loginFormData, [e.target.name]: e.target.value });
+
+    // Validate the specific field on change
+    setLoginError((prevErrors) => ({
+     ...prevErrors,
+      [e.target.name]: ""
+    }));
+    // Optionally revalidate all fields (or specific field)
+    validateLogin();
+  }
+
   const handleSignup = () => {
+    setLoader(true);
     validate();
   
     if (validate()) {
@@ -92,7 +134,7 @@ const Navbar = () => {
           // Signed up 
           const user = userCredential.user;
           const id = user.uid;
-          id && setDoc(doc(db, "cities", id), formData).then(() =>{
+          id && setDoc(doc(db, "users", id), formData).then(() =>{
             // empty form data
             setFormData({
               fullname: "",
@@ -100,11 +142,17 @@ const Navbar = () => {
               phoneNumber: "",
               password: "",
             });
+            setAuthStatus("Signed Up Successful");
+            setLoader(false);
+            setTimeout(()=>{
+              setAuthStatus("");
+            },2000);
           });
 
           // ...
         })
         .catch((error) => {
+          setLoader(false);
           const errorCode = error.code;
           const errorMessage = error.message;
           console.log(error.message , "Error");
@@ -112,32 +160,46 @@ const Navbar = () => {
         });
       }
     } else {
+      setLoader(false);
       console.log("Form is invalid, please correct the errors", errors);
     }
   };
 
   const handleLogin = () => {
-    validate();
+    setLoader(true);
+    validateLogin();
 
-    if (validate()) {
-      if(formData){
-        const { email, password } = formData;
+    if (validateLogin()) {
+      if(loginFormData){
+        const { email, password } = loginFormData;
         if(email && password){
           signInWithEmailAndPassword(auth, email, password)
          .then((userCredential) => {
             // User signed in successfully
             const user = userCredential.user;
             console.log("User signed in successfully", user);
+            setUserData(user);
+            setAuthStatus("Login Successful");
+            setLoginFormData({
+              email: "",
+              password: "",
+            });
+            setLoader(false);
+            setTimeout(()=>{
+              setAuthStatus("");
+            },2000);
             // Navigate to the home page or any desired destination
             navigate("/");
           })
          .catch((error) => {
+            setLoader(false);
             const errorCode = error.code;
             const errorMessage = error.message;
             console.log("Error signing in", errorMessage);
             // Handle the error, such as displaying an error message to the user
           });
         } else {
+          setLoader(false);
           alert("Please fill email and password");
         }
       }
@@ -150,13 +212,89 @@ const Navbar = () => {
 
   const [show, setShow] = useState(false);
 
-  const handleClose = () => setShow(false);
-  const handleShow = () => {setShow(true);setShow2(false);}
+  const handleClose = () => {
+    setShow(false);
+    setAuthStatus(false);
+    setFormData({
+      fullname: "",
+      email: "",
+      phoneNumber: "",
+      password: "",
+    });
+    setErrors({});
+  }
+  const handleShow = () => {
+    setShow(true);
+    setAuthStatus(false);
+    setShow2(false);
+    setFormData({
+      fullname: "",
+      email: "",
+      phoneNumber: "",
+      password: "",
+    });
+    setErrors({});
+  }
 
   const [show2, setShow2] = useState(false);
 
-  const handleClose2 = () => setShow2(false);
-  const handleShow2 = () => {setShow2(true);setShow(false);}
+  const handleClose2 = () => {
+    setShow2(false);
+    setAuthStatus(false);
+    setFormData({
+      fullname: "",
+      email: "",
+      phoneNumber: "",
+      password: "",
+    });
+    setErrors({});
+  }
+  const handleShow2 = () => {
+    setShow2(true);
+    setAuthStatus(false);
+    setShow(false);
+    setFormData({
+      fullname: "",
+      email: "",
+      phoneNumber: "",
+      password: "",
+    });
+    setErrors({});
+  }
+
+  useEffect(() => {
+    onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        const uid = user.uid;
+        if(uid){
+          const docRef = doc(db, "users", uid);
+          const docSnap = await getDoc(docRef);
+      
+          if (docSnap.exists()) {
+            console.log("Document data:", docSnap.data());
+            docSnap.data() && setUserData(docSnap.data());console.log(userData);
+            
+          } else {
+            console.log("No such document!");
+          }
+        }
+        
+        // ...
+      } else {
+        // User is signed out
+        // ...
+      }
+    });
+  },[]);
+
+  const handleLogout = () => {
+    signOut(auth).then(() => {
+      console.log("User signed out");
+      setUserData(null);
+    }).catch((error) => {
+      console.error("Error signing out:", error);
+    });
+  }
 
   return (
     <>
@@ -233,13 +371,24 @@ const Navbar = () => {
               <FontAwesomeIcon icon={faMagnifyingGlass} />
             </div>
 
+            {userData ? 
+            <a href="#" className="olx_navbar_login_btn" onClick={handleLogout}>
+            Logout
+            </a> :
             <a href="#" className="olx_navbar_login_btn" onClick={handleShow}>
               Login
             </a>
+            }
 
-            <Link to="/sell">
+            {
+              userData ?
+              <Link to="/sell">
               <img src={sellBTN} className="olx_navbar_sell_img" alt="sell" />
-            </Link>
+              </Link> :
+              <Link to="javascript:void(0)" onClick={handleShow}>
+                <img src={sellBTN} className="olx_navbar_sell_img" alt="sell" />
+              </Link>
+            }
           </div>
         </div>
       </div>
@@ -263,33 +412,38 @@ const Navbar = () => {
               <span>Email Address</span>
               <input
                 type="email"
+                name="email"
                 required
-                value={formData.email}
-                onChange={handleChange}
+                value={loginFormData.email}
+                onChange={handleChangeLogin}
                 autoComplete="off"
               />
               <span className="detailsSpan-2 text-danger">
-                {errors.email && errors.email}
+                {loginError.email && loginError.email}
               </span>
             </label>
             <label>
               <span>Password</span>
               <input
                 type="password"
+                name="password"
                 required
-                value={formData.password}
-                onChange={handleChange}
+                value={loginFormData.password}
+                onChange={handleChangeLogin}
                 autoComplete="off"
               />
               <span className="detailsSpan-2 text-danger">
-              {errors.password && errors.password}
+              {loginError.password && loginError.password}
               </span>
             </label>
+              <span className="detailsSpan-2 text-success">
+                {authStatus && authStatus}
+              </span>
             <h6>Don't have an account? <a href="#" onClick={handleShow2}>Signup here</a></h6>
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleLogin}>
-            Login
+            {loader ? <div className="spinner"></div> : "Login"}
           </Button>
         </Modal.Footer>
       </Modal>
@@ -365,11 +519,14 @@ const Navbar = () => {
                 {errors.password && errors.password}
               </span>
             </label>
+              <span className="detailsSpan-2 text-success">
+                {authStatus && authStatus}
+              </span>
             <h6>Already have an account? <a href="#" onClick={handleShow}>Login here</a></h6>
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleSignup}>
-            Signup
+            {loader ? <div className="spinner"></div> : "Signup"} 
           </Button>
         </Modal.Footer>
       </Modal>
