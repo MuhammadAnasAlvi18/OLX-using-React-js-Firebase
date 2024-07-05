@@ -147,6 +147,9 @@ const Navbar = () => {
             setTimeout(()=>{
               setAuthStatus("");
             },2000);
+            setTimeout(()=>{
+              setShow2(false);
+            },1000);
           });
 
           // ...
@@ -180,29 +183,31 @@ const Navbar = () => {
             console.log("User signed in successfully", user);
             setUserData(user);
             setAuthStatus("Login Successful");
+            setLoader(false);
             setLoginFormData({
               email: "",
               password: "",
             });
-            setLoader(false);
             setTimeout(()=>{
               setAuthStatus("");
             },2000);
-            // Navigate to the home page or any desired destination
-            navigate("/");
+            setTimeout(()=>{
+              setShow(false);
+            },1000);
           })
          .catch((error) => {
             setLoader(false);
             const errorCode = error.code;
             const errorMessage = error.message;
             console.log("Error signing in", errorMessage);
+            setLoginError({password: "User Not Found"})
             // Handle the error, such as displaying an error message to the user
           });
-        } else {
-          setLoader(false);
-          alert("Please fill email and password");
         }
       }
+    } else {
+      setLoader(false);
+      console.log("Please fill email and password");
     }
   };
 

@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 import camera from "../images/photo-camera.png";
 import avatar from "../images/avatar.png";
 import store from "../Redux/store";
-import { collection, addDoc, doc } from "firebase/firestore";
+import { collection, addDoc, doc, getDoc } from "firebase/firestore";
 import { getFirestore } from "firebase/firestore";
 import {
   getStorage,
@@ -17,6 +17,9 @@ import {
   uploadBytes,
 } from "firebase/storage";
 import app from "./Firebase";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+const auth = getAuth(app);
+const db = getFirestore(app);
 
 const AddCards = () => {
   const [Adtitle, setAdtitle] = useState("");
@@ -127,6 +130,35 @@ const AddCards = () => {
       setUploading(false);
     }
   };
+
+  const [id, setId] = useState("");
+  const [userData, setUserData] = useState(null);
+
+  useEffect(() => {
+    onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        const uid = user.uid;
+        if(uid){
+          const docRef = doc(db, "users", uid);
+          const docSnap = await getDoc(docRef);
+      
+          if (docSnap.exists()) {
+            console.log("Document data:", docSnap.data());
+            docSnap.data() && setUserData(docSnap.data());;
+            
+          } else {
+            console.log("No such document!");
+          }
+        }
+        
+        setId(uid);
+        // ...
+      } else {
+        setId("");
+        setUserData(null);
+      }
+    });
+  },[]);
 
   return (
     <div className="sellDiv">
@@ -287,7 +319,7 @@ const AddCards = () => {
                   <span className="avatarSpan">Name</span>
                   <input
                     type="text"
-                    value={name}
+                    value={userData ? userData.fullname : name}
                     onChange={(e) => {
                       setname(e.target.value);
                     }}
@@ -298,7 +330,7 @@ const AddCards = () => {
                 <span>Your Phone Number</span>
                 <input
                   type="number"
-                  value={number}
+                  value={userData ? userData.phoneNumber : number}
                   onChange={(e) => {
                     setnumber(e.target.value);
                   }}

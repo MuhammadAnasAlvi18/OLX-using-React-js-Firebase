@@ -36,8 +36,8 @@ const Main = () => {
         setId(uid);
         // ...
       } else {
-        // User is signed out
-        // ...
+        setId("");
+        setUserData(null);
       }
     });
   },[]);
