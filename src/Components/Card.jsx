@@ -19,9 +19,9 @@ const Card = () => {
       const querySnapshot = await getDocs(collection(db, "cards"));
       const cards = [];
       const ids = [];
-      querySnapshot.forEach((doc) => {
-        cards.push(doc.data());
-        ids.push(doc.id);
+      querySnapshot?.forEach((doc) => {
+        cards.push(doc?.data());
+        ids.push(doc?.id);
       });
       setCardData(cards);
       setId(ids);
@@ -46,9 +46,9 @@ const Card = () => {
       <div className="container">
         <div className="row pb-5">
           {cardData?.length > 0 ? (
-            cardData.map((cards, index) => {
+            cardData?.map((cards, index) => {
               let cardIds = id[index];
-              let dated = cards.time;
+              let dated = cards?.time;
               let Cdate = new Date().getTime();
               let finalDate = Cdate - dated;
               let days = Math.floor(finalDate / (1000 * 3600 * 24));

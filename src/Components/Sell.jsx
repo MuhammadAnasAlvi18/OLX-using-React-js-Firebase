@@ -280,12 +280,12 @@ const Sell = () => {
   ]);
 
   useEffect(() => {
-    store.dispatch({
+    store?.dispatch({
       type: "CATEGORY_ADDED",
       payload: {
-        category,
-        subcategory: subCategory,
-        thirdcategory: thirdCategory,
+        category: category ? category : "",
+        subcategory: subCategory ? subCategory : "",
+        thirdcategory: thirdCategory ? thirdCategory : "",
       },
     });
   }, [category, subCategory, thirdCategory]);

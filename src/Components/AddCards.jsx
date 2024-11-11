@@ -48,9 +48,9 @@ const AddCards = () => {
 
   useEffect(async () => {
     stores.length > 0 &&
-    setcategoryy(stores[stores.length - 1].categories);
-    setsubcategoryy(stores[stores.length - 1].subcategories);
-    setthirdcategory(stores[stores.length - 1].thirdcategory);
+    setcategoryy(stores[stores.length - 1]?.categories ? stores[stores.length - 1].categories : "");
+    setsubcategoryy(stores[stores.length - 1]?.subcategories ? stores[stores.length - 1].subcategories : "");
+    setthirdcategory(stores[stores.length - 1]?.thirdcategory ? stores[stores.length - 1].thirdcategory : "");
   }, []);
 
   const handleImageUploader = (e, index) => {
