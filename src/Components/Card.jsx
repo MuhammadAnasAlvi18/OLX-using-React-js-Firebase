@@ -6,6 +6,7 @@ import { getFirestore } from "firebase/firestore";
 import app from "./Firebase";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-regular-svg-icons";
+import { useCallback } from "react";
 
 const Card = () => {
   const [cardData, setCardData] = useState([]);
@@ -14,7 +15,7 @@ const Card = () => {
   const [cardDataId, setCardDataId] = useState("");
   const db = getFirestore(app);
 
-  const fetchData = async () => {
+  const fetchData = useCallback(async () => {
     const querySnapshot = await getDocs(collection(db, "cards"));
     const cards = [];
     const ids = [];
@@ -24,11 +25,11 @@ const Card = () => {
     });
     setCardData(cards);
     setId(ids);
-  };
-
+  }, [db]);
+  
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [fetchData]);
 
   const handleCardClick = (cardId) => {
     setCardDataId(cardId);
