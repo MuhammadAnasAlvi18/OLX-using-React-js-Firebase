@@ -7,7 +7,6 @@ import {
   Routes,
   Route,
 } from "react-router-dom";
-import MainTwo from "./Components/MainTwo";
 import CardDetail from "./Components/CardDetail";
 
 

@@ -12,14 +12,14 @@ import { getFirestore } from "firebase/firestore";
 import {
   getStorage,
   ref,
-  uploadBytesResumable,
+  // uploadBytesResumable,
   getDownloadURL,
   uploadBytes,
 } from "firebase/storage";
 import app from "./Firebase";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 const auth = getAuth(app);
-const db = getFirestore(app);
+// const db = getFirestore(app);
 
 const AddCards = () => {
   const [Adtitle, setAdtitle] = useState("");
@@ -33,13 +33,13 @@ const AddCards = () => {
   const [subcategoryy, setsubcategoryy] = useState("");
   const [thirdcategory, setthirdcategory] = useState("");
   const [msg, setmsg] = useState("");
-  const [colors, setcolors] = useState("");
+  // const [colors, setcolors] = useState("");
   const [coverImage, setcoverImage] = useState([]);
-  const [coverImageURL, setcoverImageURL] = useState([]);
+  // const [coverImageURL, setcoverImageURL] = useState([]);
   const [btnClass, setbtnClass] = useState("");
   const [images, setImages] = useState([]);
-  const [urls, setUrls] = useState([]);
-  const [uploading, setUploading] = useState(false);
+  // const [urls, setUrls] = useState([]);
+  // const [uploading, setUploading] = useState(false);
 
   const stores = store.getState();
   const uid = "123456789";
@@ -64,15 +64,12 @@ const AddCards = () => {
     setImages(updatedImages);
   };
 
-  const handleUpload = async () => {
-    
-  };
 
   const addCard = async (e) => {
     setbtnClass("active");
     e.preventDefault();
 
-    setUploading(true);
+    // setUploading(true);
     const urlPromises = images.map(async (img) => {
       try {
         const storageRef = ref(storage, `moreimages/${img.name}`);
@@ -86,7 +83,7 @@ const AddCards = () => {
 
     try {
       const urls = await Promise.all(urlPromises);
-      setUrls(urls);
+      // setUrls(urls);
       setTimeout(async () => {
         try {
           const docRef = await addDoc(collection(db, "cards"), {
@@ -105,13 +102,13 @@ const AddCards = () => {
           console.log("Document written with ID: ", docRef.id);
           setmsg("Your Ad Post Successfully");
           setbtnClass("");
-          setcolors("green");
+          // setcolors("green");
           setTimeout(() => {
             setmsg("");
           }, 2000);
         } catch (e) {
           console.error("Error adding document: ", e);
-          setcolors("red");
+          // setcolors("red");
         }
         setAdtitle("");
         setdescription("");
@@ -121,17 +118,17 @@ const AddCards = () => {
         setprice("");
         setnumber("");
         setcoverImage(null);
-        setcoverImageURL([]);
+        // setcoverImageURL([]);
       }, 1000);
       console.log('All images uploaded and URLs obtained successfully!', urls);
     } catch (error) {
       console.error('Error while uploading images or getting URLs:', error);
     } finally {
-      setUploading(false);
+      // setUploading(false);
     }
   };
 
-  const [id, setId] = useState("");
+  // const [id, setId] = useState("");
   const [userData, setUserData] = useState(null);
 
   useEffect(() => {
@@ -151,10 +148,10 @@ const AddCards = () => {
           }
         }
         
-        setId(uid);
+        // setId(uid);
         // ...
       } else {
-        setId("");
+        // setId("");
         setUserData(null);
       }
     });
@@ -170,7 +167,7 @@ const AddCards = () => {
           ></FontAwesomeIcon>
         </Link>
         <Link to="/">
-          <img src={logo}></img>
+          <img alt="logo" src={logo}></img>
         </Link>
       </div>
       <div className="sellh2">
@@ -314,7 +311,7 @@ const AddCards = () => {
             <h1>Review your Details</h1>
             <div className="avatarDiv">
               <div className="avatarDiv2">
-                <img src={avatar}></img>
+                <img alt="avatar" src={avatar}></img>
                 <div className="avatarDiv3">
                   <span className="avatarSpan">Name</span>
                   <input

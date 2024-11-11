@@ -5,7 +5,7 @@ const Banner = () => {
   return (
     <div className="banner">
       <div className="container">
-      <img src={banner}></img>
+      <img alt="banner" src={banner}></img>
     </div>
     </div>
   );

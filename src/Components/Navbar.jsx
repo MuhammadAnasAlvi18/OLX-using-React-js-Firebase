@@ -156,8 +156,8 @@ const Navbar = () => {
         })
         .catch((error) => {
           setLoader(false);
-          const errorCode = error.code;
-          const errorMessage = error.message;
+          // const errorCode = error.code;
+          // const errorMessage = error.message;
           console.log(error.message , "Error");
           // ..
         });
@@ -197,9 +197,9 @@ const Navbar = () => {
           })
          .catch((error) => {
             setLoader(false);
-            const errorCode = error.code;
-            const errorMessage = error.message;
-            console.log("Error signing in", errorMessage);
+            // const errorCode = error.code;
+            // const errorMessage = error.message;
+            // console.log("Error signing in", errorMessage);
             setLoginError({password: "User Not Found"})
             // Handle the error, such as displaying an error message to the user
           });
@@ -313,10 +313,10 @@ const Navbar = () => {
                 navigate("/");
               }}
             />
-            <a href="#">
+            <a href="/">
               <FontAwesomeIcon icon={faCarRear}></FontAwesomeIcon>Motors
             </a>
-            <a href="#">
+            <a href="/">
               <FontAwesomeIcon icon={faBuilding}></FontAwesomeIcon>Property
             </a>
           </div>
@@ -324,7 +324,7 @@ const Navbar = () => {
           <div className="olx_navbar_search">
             <img
               src={logoBlack}
-              alt="logo"
+              alt="logoBlack"
               onClick={() => {
                 navigate("/");
               }}

@@ -14,21 +14,21 @@ const Card = () => {
   const [cardDataId, setCardDataId] = useState("");
   const db = getFirestore(app);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const querySnapshot = await getDocs(collection(db, "cards"));
-      const cards = [];
-      const ids = [];
-      querySnapshot?.forEach((doc) => {
-        cards.push(doc?.data());
-        ids.push(doc?.id);
-      });
-      setCardData(cards);
-      setId(ids);
-    };
+  const fetchData = async () => {
+    const querySnapshot = await getDocs(collection(db, "cards"));
+    const cards = [];
+    const ids = [];
+    querySnapshot?.forEach((doc) => {
+      cards.push(doc?.data());
+      ids.push(doc?.id);
+    });
+    setCardData(cards);
+    setId(ids);
+  };
 
+  useEffect(() => {
     fetchData();
-  }, [db]);
+  }, []);
 
   const handleCardClick = (cardId) => {
     setCardDataId(cardId);

@@ -26,7 +26,7 @@ const Sell = () => {
   const [category, setCategory] = useState("");
   const [subCategory, setSubCategory] = useState("");
   const [thirdCategory, setThirdCategory] = useState("");
-  const [categoryData, setCategoryData] = useState([
+  const categoryData = [
     {
       text: "Mobiles",
       categoryText: "Mobiles",
@@ -277,7 +277,7 @@ const Sell = () => {
         "Kids Accessories",
       ],
     },
-  ]);
+  ];
 
   useEffect(() => {
     store?.dispatch({

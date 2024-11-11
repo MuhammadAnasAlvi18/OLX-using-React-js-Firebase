@@ -5,14 +5,12 @@ import {
   faShareNodes,
   faAngleRight,
   faPhone,
-  faAngleLeft,
   faHeart,
   faLocationDot,
   faMessage,
   faFlag,
 } from "@fortawesome/free-solid-svg-icons";
 import avatar from "../images/avatar.png";
-import mapImage from "../images/Map.png";
 import { doc, getDoc } from "firebase/firestore";
 import { getFirestore } from "firebase/firestore";
 import app from "./Firebase";
@@ -24,15 +22,15 @@ import { Link } from "react-router-dom";
 const CardDetail = () => {
   const [cardId, setCardId] = useState("");
   const [number, setNumber] = useState("Show Phone Number");
-  const [numberColor, setNumberColor] = useState("black");
+  // const [numberColor, setNumberColor] = useState("black");
   const [datas, setDatas] = useState([]);
-  const [transform, setTransform] = useState(0);
-  const [coverState, setCoverState] = useState(null);
-  const [classd, setClassd] = useState("cardDtl");
+  // const [transform, setTransform] = useState(0);
+  // const [coverState, setCoverState] = useState(null);
+  // const [classd, setClassd] = useState("cardDtl");
 
   useEffect(() => {
     const fetchCardData = async () => {
-      setClassd("cardDtlAgain");
+      // setClassd("cardDtlAgain");
       
       const locationId = window.location.pathname.split("/");
       const id = locationId[2];
@@ -89,7 +87,7 @@ const CardDetail = () => {
                         <div className="carousel-inner">
                           {imgArr && imgArr.map((moreimages, imgIndex) => (
                             <div className={`carousel-item ${imgIndex === 0 ? 'active' : ''}`} key={imgIndex}>
-                              <img src={moreimages} className="d-block w-100" alt="image" />
+                              <img src={moreimages} className="d-block w-100" alt="card_image" />
                             </div>
                           ))}
                         </div>
@@ -156,7 +154,7 @@ const CardDetail = () => {
                       <div className="card-detail-right-profile-detail">
                         <div className="card-detail-right-profile-detail-flex">
                           <div className="avatar-wrapper">
-                            <img src={avatar} alt="image" />
+                            <img src={avatar} alt="avatar" />
                           </div>
                           <div className="text-wrapper">
                             <h5>{cardd.name}</h5>
