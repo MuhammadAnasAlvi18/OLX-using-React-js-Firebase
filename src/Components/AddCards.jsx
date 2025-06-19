@@ -359,7 +359,7 @@ const AddCards = () => {
             </div>
           </div>
           <div className="postDiv">
-            <span style={{ color: "red" }}>{msg}</span>
+            <span style={{ color: "green" }}>{msg}</span>
             {Adtitle &&
             description &&
             price &&

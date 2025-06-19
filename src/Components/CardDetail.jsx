@@ -24,35 +24,49 @@ const CardDetail = () => {
   const [number, setNumber] = useState("Show Phone Number");
   // const [numberColor, setNumberColor] = useState("black");
   const [datas, setDatas] = useState([]);
+  const [loading, setLoading] = useState(true);
   // const [transform, setTransform] = useState(0);
   // const [coverState, setCoverState] = useState(null);
   // const [classd, setClassd] = useState("cardDtl");
 
   useEffect(() => {
     const fetchCardData = async () => {
-      // setClassd("cardDtlAgain");
-      
-      const locationId = window.location.pathname.split("/");
-      const id = locationId[2];
-      setCardId(id);
-
-      const db = getFirestore(app);
-      const docRef = doc(db, "cards", id);
-      const docSnap = await getDoc(docRef);
-
-      if (docSnap.exists()) {
-        const cardData = docSnap.data();
-        setDatas([cardData]);
-        console.log(datas);
-        console.log(cardData);
+      try {
+        setLoading(true);
         
+        const locationId = window.location.pathname.split("/");
+        const id = locationId[2];
         
-        // setCoverState(cardData.cover);
+        if (!id) {
+          console.error("No card ID found in URL");
+          setLoading(false);
+          return;
+        }
+        
+        setCardId(id);
+
+        const db = getFirestore(app);
+        const docRef = doc(db, "cards", id);
+        const docSnap = await getDoc(docRef);
+
+        if (docSnap.exists()) {
+          const cardData = docSnap.data();
+          setDatas([cardData]);
+          console.log("Card data loaded:", cardData);
+        } else {
+          console.log("No such document!");
+          setDatas([]);
+        }
+      } catch (error) {
+        console.error("Error fetching card data:", error);
+        setDatas([]);
+      } finally {
+        setLoading(false);
       }
     };
 
     fetchCardData();
-  }, [cardId]);
+  }, []); // Remove cardId dependency to prevent infinite loop
 
   return (
     <>
@@ -63,7 +77,7 @@ const CardDetail = () => {
           <span key={index} className="card-detail-span">{`Home / ${cardData.other[0]} / ${cardData.other[1]} / ${cardData.other[0]} in ${cardData.location} / ${cardData.other[1]} in ${cardData.location}`}</span>
         ))}
         <div className="cardDtlMain">
-          {datas.length > 0 ? (
+          {!loading && datas.length > 0 ? (
             datas.map((cardd, index) => {
               let imgArr = cardd.images;
               // let imgArrDup = [...new Set(imgArr)];

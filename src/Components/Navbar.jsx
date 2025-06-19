@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import logo from "../images/olx-logo-vector.png";
 import logoBlack from "../images/olx-logo-vector-black.png";
 import sellBTN from "../images/BUTTON.png";
@@ -16,7 +16,7 @@ import { Button, Modal } from "react-bootstrap";
 import app from "./Firebase";
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "firebase/auth";
 import { doc, getDoc, getFirestore, setDoc } from "firebase/firestore";
-import { onAuthStateChanged } from "firebase/auth/cordova";
+import { onAuthStateChanged } from "firebase/auth";
 
 const auth = getAuth(app);
 const db = getFirestore(app);
@@ -48,7 +48,7 @@ const Navbar = () => {
   const [loader, setLoader] = useState(false);
   const [userData, setUserData] = useState(null);
 
-  const validate = () => {
+  const validate = useCallback(() => {
     let errors = {};
   
     if (!formData.fullname.trim()) {
@@ -76,16 +76,16 @@ const Navbar = () => {
     setErrors(errors);
   
     return Object.keys(errors).length === 0;
-  };
+  }, [formData]);
 
-  const validateLogin = () => {
+  const validateLogin = useCallback(() => {
     let errors = {};
 
     if (!loginFormData.email) {
       errors.email = "Email is required";
     } else if (!/\S+@\S+\.\S+/.test(loginFormData.email)) {
       errors.email = "Email address is invalid";     
-  }
+    }
 
     if (!loginFormData.password) {
       errors.password = "Password is required";
@@ -93,10 +93,10 @@ const Navbar = () => {
       errors.password = "Password needs to be 6 characters or more";
     }
     
-      setLoginError(errors);
+    setLoginError(errors);
 
-      return Object.keys(errors).length === 0;
-  }
+    return Object.keys(errors).length === 0;
+  }, [loginFormData]);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -106,9 +106,6 @@ const Navbar = () => {
       ...prevErrors,
       [e.target.name]: ""
     }));
-  
-    // Optionally revalidate all fields (or specific field)
-    validate();
   };
 
   const handleChangeLogin = (e) => {
@@ -119,14 +116,11 @@ const Navbar = () => {
      ...prevErrors,
       [e.target.name]: ""
     }));
-    // Optionally revalidate all fields (or specific field)
-    validateLogin();
   }
 
   const handleSignup = () => {
     setLoader(true);
-    validate();
-  
+    
     if (validate()) {
       if(formData){
         createUserWithEmailAndPassword(auth, formData.email, formData.password)
@@ -170,7 +164,6 @@ const Navbar = () => {
 
   const handleLogin = () => {
     setLoader(true);
-    validateLogin();
 
     if (validateLogin()) {
       if(loginFormData){
@@ -211,41 +204,34 @@ const Navbar = () => {
     }
   };
 
-  // const handleChange = (e) => {
-  //   setFormData({...formData, [e.target.name]: e.target.value });
-  // };
-
   const [show, setShow] = useState(false);
 
   const handleClose = () => {
     setShow(false);
-    setAuthStatus(false);
-    setFormData({
-      fullname: "",
+    setAuthStatus("");
+    setLoginFormData({
       email: "",
-      phoneNumber: "",
       password: "",
     });
-    setErrors({});
+    setLoginError({});
   }
+  
   const handleShow = () => {
     setShow(true);
-    setAuthStatus(false);
+    setAuthStatus("");
     setShow2(false);
-    setFormData({
-      fullname: "",
+    setLoginFormData({
       email: "",
-      phoneNumber: "",
       password: "",
     });
-    setErrors({});
+    setLoginError({});
   }
 
   const [show2, setShow2] = useState(false);
 
   const handleClose2 = () => {
     setShow2(false);
-    setAuthStatus(false);
+    setAuthStatus("");
     setFormData({
       fullname: "",
       email: "",
@@ -254,9 +240,10 @@ const Navbar = () => {
     });
     setErrors({});
   }
+  
   const handleShow2 = () => {
     setShow2(true);
-    setAuthStatus(false);
+    setAuthStatus("");
     setShow(false);
     setFormData({
       fullname: "",
@@ -268,7 +255,7 @@ const Navbar = () => {
   }
 
   useEffect(() => {
-    onAuthStateChanged(auth, async (user) => {
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (user) {
         const uid = user.uid;
         if(uid){
@@ -277,8 +264,7 @@ const Navbar = () => {
       
           if (docSnap.exists()) {
             console.log("Document data:", docSnap.data());
-            docSnap.data() && setUserData(docSnap.data());console.log(userData);
-            
+            setUserData(docSnap.data());
           } else {
             console.log("No such document!");
           }
@@ -287,9 +273,13 @@ const Navbar = () => {
         // ...
       } else {
         // User is signed out
+        setUserData(null);
         // ...
       }
     });
+
+    // Cleanup subscription on unmount
+    return () => unsubscribe();
   },[]);
 
   const handleLogout = () => {
@@ -301,6 +291,13 @@ const Navbar = () => {
     });
   }
 
+  const handleNavigateToSell = (e) => {
+    if (!userData) {
+      e.preventDefault();
+      handleShow();
+    }
+  }
+
   return (
     <>
       <div className="olx_navbar">
@@ -308,23 +305,23 @@ const Navbar = () => {
           <div className="olx_navbar_top">
             <img
               src={logo}
-              alt="logo"
+              alt="OLX Logo"
               onClick={() => {
                 navigate("/");
               }}
             />
-            <a href="/">
+            <Link to="/">
               <FontAwesomeIcon icon={faCarRear}></FontAwesomeIcon>Motors
-            </a>
-            <a href="/">
+            </Link>
+            <Link to="/">
               <FontAwesomeIcon icon={faBuilding}></FontAwesomeIcon>Property
-            </a>
+            </Link>
           </div>
 
           <div className="olx_navbar_search">
             <img
               src={logoBlack}
-              alt="logoBlack"
+              alt="OLX Logo Black"
               onClick={() => {
                 navigate("/");
               }}
@@ -350,10 +347,10 @@ const Navbar = () => {
               {isActive && (
                 <div className="dropdown">
                   <ul>
-                    {options.map((option) => {
+                    {options.map((option, index) => {
                       return (
                         <li
-                          key={Math.floor(Math.random() * 987654321)}
+                          key={`location-${index}`}
                           onClick={(e) => {
                             setselected(option);
                             setisActive(false);
@@ -376,22 +373,25 @@ const Navbar = () => {
               <FontAwesomeIcon icon={faMagnifyingGlass} />
             </div>
 
+            {
+              userData ? <span>Welcome, {userData.fullname}</span> : ""
+            }
             {userData ? 
-            <a href="#" className="olx_navbar_login_btn" onClick={handleLogout}>
+            <button type="button" className="olx_navbar_login_btn" onClick={handleLogout}>
             Logout
-            </a> :
-            <a href="#" className="olx_navbar_login_btn" onClick={handleShow}>
+            </button> :
+            <button type="button" className="olx_navbar_login_btn" onClick={handleShow}>
               Login
-            </a>
+            </button>
             }
 
             {
               userData ?
               <Link to="/sell">
-              <img src={sellBTN} className="olx_navbar_sell_img" alt="sell" />
+              <img src={sellBTN} className="olx_navbar_sell_img" alt="Sell Button" />
               </Link> :
-              <Link to="javascript:void(0)" onClick={handleShow}>
-                <img src={sellBTN} className="olx_navbar_sell_img" alt="sell" />
+              <Link to="/sell" onClick={handleNavigateToSell}>
+                <img src={sellBTN} className="olx_navbar_sell_img" alt="Sell Button" />
               </Link>
             }
           </div>
@@ -403,7 +403,7 @@ const Navbar = () => {
           <Modal.Title>
             <img
                 src={logo}
-                alt="logo"
+                alt="OLX Logo"
                 width={60}
                 height={40}
                 onClick={() => {
@@ -444,7 +444,7 @@ const Navbar = () => {
               <span className="detailsSpan-2 text-success">
                 {authStatus && authStatus}
               </span>
-            <h6>Don't have an account? <a href="#" onClick={handleShow2}>Signup here</a></h6>
+            <h6>Don't have an account? <button type="button" onClick={handleShow2}>Signup here</button></h6>
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleLogin}>
@@ -458,7 +458,7 @@ const Navbar = () => {
           <Modal.Title>
             <img
                 src={logo}
-                alt="logo"
+                alt="OLX Logo"
                 width={60}
                 height={40}
                 onClick={() => {
@@ -527,7 +527,7 @@ const Navbar = () => {
               <span className="detailsSpan-2 text-success">
                 {authStatus && authStatus}
               </span>
-            <h6>Already have an account? <a href="#" onClick={handleShow}>Login here</a></h6>
+            <h6>Already have an account? <button type="button" onClick={handleShow}>Login here</button></h6>
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleSignup}>

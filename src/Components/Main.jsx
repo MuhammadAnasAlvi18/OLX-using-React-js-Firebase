@@ -17,7 +17,7 @@ const Main = () => {
   const [userData, setUserData] = useState(null);
 
   useEffect(() => {
-    onAuthStateChanged(auth, async (user) => {
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (user) {
         const uid = user.uid;
         if(uid){
@@ -26,21 +26,23 @@ const Main = () => {
       
           if (docSnap.exists()) {
             console.log("Document data:", docSnap.data());
-            docSnap.data() && setUserData(docSnap.data());console.log(userData);
-            
+            docSnap.data() && setUserData(docSnap.data());
+            console.log("User data set:", docSnap.data());
           } else {
             console.log("No such document!");
           }
         }
         
         setId(uid);
-        // ...
       } else {
         setId("");
         setUserData(null);
       }
     });
-  },[]);
+
+    // Cleanup function to unsubscribe from auth state changes
+    return () => unsubscribe();
+  }, []);
 
   return (
     <>
