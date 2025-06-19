@@ -1,4 +1,3 @@
-import React from 'react'
 import iconsImage from '../images/icons.PNG'
 
 const Footer = () => {

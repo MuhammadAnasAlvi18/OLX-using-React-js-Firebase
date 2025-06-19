@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { collection, getDocs } from "firebase/firestore";
 import { Link } from "react-router-dom";
 import CardDetail from "./CardDetail";

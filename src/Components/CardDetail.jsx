@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import "../App.css";
 import {
   faShareNodes,
@@ -43,6 +43,10 @@ const CardDetail = () => {
       if (docSnap.exists()) {
         const cardData = docSnap.data();
         setDatas([cardData]);
+        console.log(datas);
+        console.log(cardData);
+        
+        
         // setCoverState(cardData.cover);
       }
     };

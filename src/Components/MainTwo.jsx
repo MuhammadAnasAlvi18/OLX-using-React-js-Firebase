@@ -1,12 +1,7 @@
-import React from 'react'
-import CardDetail from './CardDetail'
+import CardDetail from "./CardDetail";
 
 const MainTwo = () => {
-  return (
-   
-      <CardDetail /> 
-      
-  )
-}
+  return <CardDetail />;
+};
 
 export default MainTwo;

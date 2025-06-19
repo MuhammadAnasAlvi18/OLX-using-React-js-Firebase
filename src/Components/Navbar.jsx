@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import logo from "../images/olx-logo-vector.png";
 import logoBlack from "../images/olx-logo-vector-black.png";
 import sellBTN from "../images/BUTTON.png";

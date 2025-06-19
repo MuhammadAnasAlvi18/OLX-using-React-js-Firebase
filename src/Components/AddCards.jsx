@@ -12,14 +12,13 @@ import { getFirestore } from "firebase/firestore";
 import {
   getStorage,
   ref,
-  // uploadBytesResumable,
   getDownloadURL,
   uploadBytes,
 } from "firebase/storage";
 import app from "./Firebase";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
+
 const auth = getAuth(app);
-// const db = getFirestore(app);
 
 const AddCards = () => {
   const [Adtitle, setAdtitle] = useState("");
@@ -33,44 +32,61 @@ const AddCards = () => {
   const [subcategoryy, setsubcategoryy] = useState("");
   const [thirdcategory, setthirdcategory] = useState("");
   const [msg, setmsg] = useState("");
-  // const [colors, setcolors] = useState("");
   const [coverImage, setcoverImage] = useState([]);
-  // const [coverImageURL, setcoverImageURL] = useState([]);
   const [btnClass, setbtnClass] = useState("");
   const [images, setImages] = useState([]);
-  // const [urls, setUrls] = useState([]);
-  // const [uploading, setUploading] = useState(false);
+  const [userData, setUserData] = useState(null);
 
   const stores = store.getState();
   const uid = "123456789";
   const db = getFirestore(app);
   const storage = getStorage(app);
 
-  useEffect(async () => {
-    stores.length > 0 &&
-    setcategoryy(stores[stores.length - 1]?.categories ? stores[stores.length - 1].categories : "");
-    setsubcategoryy(stores[stores.length - 1]?.subcategories ? stores[stores.length - 1].subcategories : "");
-    setthirdcategory(stores[stores.length - 1]?.thirdcategory ? stores[stores.length - 1].thirdcategory : "");
-  }, []);
+  // Fix 1: Remove async from useEffect and handle properly
+  useEffect(() => {
+    if (stores.length > 0) {
+      const lastStore = stores[stores.length - 1];
+      setcategoryy(lastStore?.categories || "");
+      setsubcategoryy(lastStore?.subcategories || "");
+      setthirdcategory(lastStore?.thirdcategory || "");
+    }
+  }, [stores]);
 
   const handleImageUploader = (e, index) => {
-    let file = e.target.files[0];
-    const url = window.URL.createObjectURL(file);
-    coverImage.push(url);
-    setcoverImage(coverImage);
-    url && console.log(url , coverImage);
-    let updatedImages = [...images];
-    updatedImages[index] = file;
-    setImages(updatedImages);
-  };
+    const file = e.target.files[0];
+    if (!file) return;
 
+    const url = window.URL.createObjectURL(file);
+    
+    // Fix 2: Properly update coverImage array
+    setcoverImage(prev => {
+      const newCoverImage = [...prev];
+      newCoverImage[index] = url;
+      return newCoverImage;
+    });
+
+    // Fix 3: Properly update images array
+    setImages(prev => {
+      const updatedImages = [...prev];
+      updatedImages[index] = file;
+      return updatedImages;
+    });
+  };
 
   const addCard = async (e) => {
     setbtnClass("active");
     e.preventDefault();
 
-    // setUploading(true);
-    const urlPromises = images.map(async (img) => {
+    // Filter out undefined/null images
+    const validImages = images.filter(img => img);
+    
+    if (validImages.length === 0) {
+      setmsg("Please upload at least one image");
+      setbtnClass("");
+      return;
+    }
+
+    const urlPromises = validImages.map(async (img) => {
       try {
         const storageRef = ref(storage, `moreimages/${img.name}`);
         await uploadBytes(storageRef, img);
@@ -78,12 +94,14 @@ const AddCards = () => {
         return url;
       } catch (error) {
         console.error(`Failed to upload ${img.name}:`, error);
+        return null;
       }
     });
 
     try {
       const urls = await Promise.all(urlPromises);
-      // setUrls(urls);
+      const validUrls = urls.filter(url => url !== null);
+      
       setTimeout(async () => {
         try {
           const docRef = await addDoc(collection(db, "cards"), {
@@ -95,67 +113,69 @@ const AddCards = () => {
             name: name,
             phone: number,
             uid: uid,
-            images: urls,
+            images: validUrls,
             other: [categoryy, subcategoryy, thirdcategory],
             time: new Date().getTime(),
           });
           console.log("Document written with ID: ", docRef.id);
           setmsg("Your Ad Post Successfully");
           setbtnClass("");
-          // setcolors("green");
           setTimeout(() => {
             setmsg("");
           }, 2000);
+          
+          // Reset form
+          setAdtitle("");
+          setdescription("");
+          setcondition("");
+          setloacation("");
+          setname("");
+          setprice("");
+          setnumber("");
+          setcoverImage([]);
+          setImages([]);
         } catch (e) {
           console.error("Error adding document: ", e);
-          // setcolors("red");
+          setmsg("Error posting ad. Please try again.");
+          setbtnClass("");
         }
-        setAdtitle("");
-        setdescription("");
-        setcondition("");
-        setloacation("");
-        setname("");
-        setprice("");
-        setnumber("");
-        setcoverImage(null);
-        // setcoverImageURL([]);
       }, 1000);
-      console.log('All images uploaded and URLs obtained successfully!', urls);
+      console.log('All images uploaded and URLs obtained successfully!', validUrls);
     } catch (error) {
       console.error('Error while uploading images or getting URLs:', error);
-    } finally {
-      // setUploading(false);
+      setmsg("Error uploading images. Please try again.");
+      setbtnClass("");
     }
   };
 
-  // const [id, setId] = useState("");
-  const [userData, setUserData] = useState(null);
-
+  // Fix 4: Properly handle auth state changes
   useEffect(() => {
-    onAuthStateChanged(auth, async (user) => {
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (user) {
         const uid = user.uid;
-        if(uid){
+        try {
           const docRef = doc(db, "users", uid);
           const docSnap = await getDoc(docRef);
       
           if (docSnap.exists()) {
             console.log("Document data:", docSnap.data());
-            docSnap.data() && setUserData(docSnap.data());;
-            
+            setUserData(docSnap.data());
+            setname(docSnap.data().fullname);
+            setnumber(docSnap.data().phoneNumber);
           } else {
             console.log("No such document!");
           }
+        } catch (error) {
+          console.error("Error fetching user data:", error);
         }
-        
-        // setId(uid);
-        // ...
       } else {
-        // setId("");
         setUserData(null);
       }
     });
-  },[]);
+
+    // Return cleanup function
+    return () => unsubscribe();
+  }, [db]);
 
   return (
     <div className="sellDiv">
@@ -273,20 +293,23 @@ const AddCards = () => {
             <div className="photo">
               <h2 className="uploadh2">Upload Up To 20 Photos</h2>
               <div className="upload">
-                
+                {/* Fix 5: Add key prop and handle array properly */}
                 {Array.from({ length: 19 }).map((_, i) => (
-                  <label className="uploadCards">
-                  <input
-                    type="file"
-                    className="fileUpload"
-                    id="fileUpload1"
-                    onChange={(e)=>{handleImageUploader(e,i)}}
-                  />
-                  {coverImage[i] ? <img src={coverImage && coverImage[i]} className="upload-cover" alt="" /> : <img src={camera} className="upload-img" alt="upload" />}
-                  
-                </label>
+                  <label key={i} className="uploadCards">
+                    <input
+                      type="file"
+                      className="fileUpload"
+                      id={`fileUpload${i}`}
+                      accept="image/*"
+                      onChange={(e) => handleImageUploader(e, i)}
+                    />
+                    {coverImage[i] ? (
+                      <img src={coverImage[i]} className="upload-cover" alt="" />
+                    ) : (
+                      <img src={camera} className="upload-img" alt="upload" />
+                    )}
+                  </label>
                 ))}
-                
               </div>
               <h2 className="uploadh22">
                 For the cover picture we recommend using the landscape mode.
@@ -340,10 +363,10 @@ const AddCards = () => {
             {Adtitle &&
             description &&
             price &&
-            images &&
+            images.filter(img => img).length > 0 &&
             loacation &&
-            name &&
-            number ? (
+            (userData ? userData.fullname : name) &&
+            (userData ? userData.phoneNumber : number) ? (
               <button onClick={addCard} className={btnClass}>
                 Post now
               </button>
@@ -357,9 +380,6 @@ const AddCards = () => {
                 Post now
               </button>
             )}
-            {/* <button onClick={addCard} className={btnClass}>
-              Post now
-            </button> */}
           </div>
         </div>
       </div>
