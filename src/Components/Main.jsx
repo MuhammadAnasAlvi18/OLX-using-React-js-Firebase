@@ -14,7 +14,7 @@ const db = getFirestore(app);
 const Main = () => {
 
   const [id, setId] = useState("");
-  const [userData, setUserData] = useState(null);
+  // const [userData, setUserData] = useState(null);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
@@ -26,7 +26,7 @@ const Main = () => {
       
           if (docSnap.exists()) {
             console.log("Document data:", docSnap.data());
-            docSnap.data() && setUserData(docSnap.data());
+            // docSnap.data() && setUserData(docSnap.data());
             console.log("User data set:", docSnap.data());
           } else {
             console.log("No such document!");
@@ -36,7 +36,7 @@ const Main = () => {
         setId(uid);
       } else {
         setId("");
-        setUserData(null);
+        // setUserData(null);
       }
     });
 
@@ -52,7 +52,7 @@ const Main = () => {
       <div className="container"><h1 className="h1">Fresh recommendations {id}</h1></div>
       <Card />
       <div className="banner-2">
-        <img src={banner}></img>
+        <img src={banner} alt="banner"></img>
       </div>
       <Footer />
       <div className="footer-last">
