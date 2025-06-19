@@ -13,7 +13,7 @@ const db = getFirestore(app);
 
 const Main = () => {
 
-  const [id, setId] = useState("");
+  // const [id, setId] = useState("");
   // const [userData, setUserData] = useState(null);
 
   useEffect(() => {
@@ -33,9 +33,9 @@ const Main = () => {
           }
         }
         
-        setId(uid);
+        // setId(uid);
       } else {
-        setId("");
+        // setId("");
         // setUserData(null);
       }
     });
@@ -49,7 +49,7 @@ const Main = () => {
       <Navbar />
       <Category />
       <Banner />
-      <div className="container"><h1 className="h1">Fresh recommendations {id}</h1></div>
+      <div className="container"><h1 className="h1">Fresh recommendations</h1></div>
       <Card />
       <div className="banner-2">
         <img src={banner} alt="banner"></img>
