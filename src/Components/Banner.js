@@ -1,4 +1,3 @@
-import React from "react";
 import banner from '../images/Poster.PNG'
 
 const Banner = () => {

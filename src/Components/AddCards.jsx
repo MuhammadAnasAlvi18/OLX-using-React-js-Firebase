@@ -36,9 +36,10 @@ const AddCards = () => {
   const [btnClass, setbtnClass] = useState("");
   const [images, setImages] = useState([]);
   const [userData, setUserData] = useState(null);
+  const [uid, setUid] = useState(null);
 
   const stores = store.getState();
-  const uid = "123456789";
+  // const uid = "123456789";
   const db = getFirestore(app);
   const storage = getStorage(app);
 
@@ -122,7 +123,7 @@ const AddCards = () => {
           setbtnClass("");
           setTimeout(() => {
             setmsg("");
-          }, 2000);
+          }, 5000);
           
           // Reset form
           setAdtitle("");
@@ -153,6 +154,7 @@ const AddCards = () => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (user) {
         const uid = user.uid;
+        setUid(uid);
         try {
           const docRef = doc(db, "users", uid);
           const docSnap = await getDoc(docRef);
